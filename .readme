@@ -1,0 +1,9 @@
+---COMP 1004---
+
+Project Name: MySchedule+
+
+Project Vision
+
+This project is going to help people who struggle to manage the time they spend on activities in everyday life and help them find a healthier balance in their life.
+My application is going to take information from the user such as currently on average how much time they spend on certain activities every day. For example they can provide information such as how long they spend gaming and how long they spend working in a day. Depending on how long they spend on each activity the application will return a response telling them if they are spending too long or too little time on each activity. If you are spending too long on gaming and not much getting work done for your job it will provide a time schedule you can use to balance both activities and may even suggest another activity if you are spending too much time in general on the original activities 
+The user will input the information required from them and the program will tell them if they are spending too much or too little time on activities. It will then figure out a solution for how much time they should be spending on each activity per day and store it in a JSON file. I am going to include a login system so that users can access their own schedules. When they first run the program it will ask them to create a username and password, this will be stored in the first two lines of the JSON file and will be how they access their schedule file. 

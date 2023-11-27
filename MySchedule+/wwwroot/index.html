@@ -2,9 +2,29 @@
 <html>
 <head>
     <meta charset="utf-8" />
-    <title></title>
+    <!--Link the style sheet to the html file and assign a title to the site-->
+    <link rel="stylesheet" href="css/style.css">
+    <title>Myschedule+</title>
 </head>
 <body>
-    Welcome
+    <div class="banner">
+        <div class="navbar">
+            <!--Create a title tag in the navbar that has an id to identify it in the javascript and css files-->
+            <h1 id="home">MySchedule+</h1>
+            <!--Create an unordered list to create a navigation system on my site-->
+            <ul>
+                <li><a id="myAccount" href="#">My account</a></li>
+                <li><a id="support" href="#">Support</a></li>
+            </ul>
+        </div>
+
+        <!--Create a div of class type content which will hold the content of each screen-->
+        <div class="content">
+            <h1>Myschedule+</h1>
+            <p>Welcome to Myschedule+, this is a single paged web application where you can create a schedule and manage your time</p>
+        </div>
+
+    </div>
+        <script src="js/script.js"></script>
 </body>
 </html>

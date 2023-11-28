@@ -13,11 +13,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\jjc19\\source\\repos\\MySchedule+\\MySchedule+.csproj",
-      "projectName": "MySchedule+",
-      "projectPath": "C:\\Users\\jjc19\\source\\repos\\MySchedule+\\MySchedule+.csproj",
+      "projectUniqueName": "C:\\Users\\jjc19\\OneDrive\\Documents\\GitHub\\COMP-1004-Coursework\\MySchedule+\\Myschedule+.csproj",
+      "projectName": "Myschedule+",
+      "projectPath": "C:\\Users\\jjc19\\OneDrive\\Documents\\GitHub\\COMP-1004-Coursework\\MySchedule+\\Myschedule+.csproj",
       "packagesPath": "C:\\Users\\jjc19\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\jjc19\\source\\repos\\MySchedule+\\obj\\",
+      "outputPath": "C:\\Users\\jjc19\\OneDrive\\Documents\\GitHub\\COMP-1004-Coursework\\MySchedule+\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\jjc19\\AppData\\Roaming\\NuGet\\NuGet.Config",

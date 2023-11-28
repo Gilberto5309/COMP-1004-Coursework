@@ -28,7 +28,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    background-color: rgb(206, 156, 90);
+    background-color: rgb(211, 136, 62);
 }
 
     .navbar h1 {
@@ -126,4 +126,23 @@ span {
 
 button:hover span {
     width: 100%;
+}
+
+
+.loginContainer {
+    border: 2px solid rgb(102, 41, 41);
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+label {
+    font-weight: bold;
 }

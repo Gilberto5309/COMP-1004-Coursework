@@ -105,8 +105,8 @@ button {
     border-radius: 25px;
     font-weight: bold;
     border: 2px solid rgb(102, 41, 41);
-    background: transparent;
-    color: black;
+    background: rgb(201, 143, 66);
+    color: white;
     cursor: pointer;
     position: relative;
     overflow: hidden;
@@ -128,11 +128,7 @@ button:hover span {
     width: 100%;
 }
 
-.login {
-    display: center;
-    align-items: center;
-    justify-content: center;
-}
+
 
 input[type=text] {
     width: 40%;
@@ -140,4 +136,51 @@ input[type=text] {
     margin: 8px 0;
     background-color: rgb(201, 143, 66);
     color: white;
+    border-radius: 8px;
+    border: 2px solid rgb(102, 41, 41);
+}
+
+input[type=submit] {
+    width: 10%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    background-color: rgb(201, 143, 66);
+    color: white;
+    border-radius: 8px;
+    border: 2px solid rgb(102, 41, 41);
+}
+
+.login {
+    padding: 20px;
+    align-items: center;
+    justify-content: center;
+    margin-top: 8%;
+    background-color: rgb(204, 156, 92);
+    width: 40%;
+    height: 45%;
+    margin-left: 30%;
+    border: 3px solid rgb(102, 41, 41);
+}
+
+.register {
+    padding: 20px;  
+    align-items: center;
+    justify-content: center;
+    margin-top: 8%;
+    background-color: rgb(204, 156, 92);
+    width: 40%;
+    height: 45%;
+    margin-left: 30%;
+    border: 3px solid rgb(102, 41, 41);
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+
+label {
+    font-weight: bold;
 }

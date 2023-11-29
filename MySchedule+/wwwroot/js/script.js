@@ -7,8 +7,9 @@
 $(document).ready(function () {
 
 
-    //hide the login form it will be shown on the myAccount page
+    //hide the login and register form they will be shown on the myAccount page
     $('.login').hide();
+    $('.register').hide();
 
 
     //Function for changing to the accountMenu screen of the SPA
@@ -55,10 +56,25 @@ $(document).ready(function () {
 
         }
 
+        //when the sign in button is pressed the sign in form will be displayed
         signInButton.click(function () {
             $('.login').show();
+
+            signInButton.remove();
+            registerButton.remove();
+
+            $('.content').hide();
         });
-            
+
+        //when the register button is pressed the register form will appear
+        registerButton.click(function () {
+            $('.register').show();
+
+            signInButton.remove();
+            registerButton.remove();
+
+            $('.content').hide();
+        });
     }
 
     //Function for changing to the supportMenu screen
@@ -76,7 +92,16 @@ $(document).ready(function () {
         //change the content of both the tags to text for the supportMenu screen
         contenth1.textContent = "Support";
 
-        contentp.textContent = "This is were you can view support for the application";
+        contentp.textContent = "This is an application that will allow you to manage your time by adding your daily activities to a schedule";
+
+        //hide the form
+        $('.login').hide();
+
+        //hide register form
+        $('.register').hide();
+
+        //show the content back on the page
+        $('.content').show();
 
         //remove any created buttons
         var signInButton = document.querySelector("#signIn");
@@ -103,6 +128,15 @@ $(document).ready(function () {
         contenth1.textContent = "Myschedule+";
 
         contentp.textContent = "Welcome to Myschedule+, this is a single paged web application where you can create a schedule and manage your time";
+
+        //hide the form
+        $('.login').hide();
+
+        //hide the register form
+        $('.register').hide();
+
+        //show the content back on the page
+        $('.content').show();
 
         //remove any created buttons
         var signInButton = document.querySelector("#signIn");

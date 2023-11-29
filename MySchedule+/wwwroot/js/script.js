@@ -7,6 +7,9 @@
 $(document).ready(function () {
 
 
+    //hide the login form it will be shown on the myAccount page
+    $('.login').hide();
+
 
     //Function for changing to the accountMenu screen of the SPA
     function accountMenu() {
@@ -53,38 +56,7 @@ $(document).ready(function () {
         }
 
         signInButton.click(function () {
-
-            //Create a login form
-
-            //create a container div for the form
-            var logincontainer = $('<div class="loginContainer"/>');
-            //append this container to the .banner div tag
-            $('.banner').append(logincontainer);
-
-            //add a login header to the container
-            var login = $('<h2>Login</h2>');
-            $('.loginContainer').append(login);
-
-            //create a form tag
-            var loginForm = $('<form id="login"/>');
-            $('.loginContainer').append(loginForm);
-
-            //create labels for the form
-            var usernameLabel = $('<label for="username">Username:</label>');
-            var usernameInput = $('<input type="text" id="username" name="username" required>')
-            var passwordLabel = $('<label for="password>Password:</label>');
-            var passwordInput = $('<input type="text" id="password" name="password" required>')
-            //add the labels to the form
-            $('loginForm').append(usernameLabel);
-            $('loginForm').append(passwordLabel);
-
-            //clear the screen for the form
-            signInButton.remove();
-            registerButton.remove();
-            contenth1.textContent = "";
-            contentp.textContent = "";
-
-
+            $('.login').show();
         });
             
     }

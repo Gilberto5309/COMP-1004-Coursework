@@ -176,16 +176,7 @@ input[type=submit] {
     border: 3px solid rgb(102, 41, 41);
 }
 
-=======
-.login {
-    border: 2px solid rgb(102, 41, 41);
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    text-align: center;
-}
 
->>>>>>> Stashed changes
 form {
     display: flex;
     flex-direction: column;
@@ -197,5 +188,4 @@ form {
 label {
     font-weight: bold;
 }
-=======
->>>>>>> Stashed changes
+

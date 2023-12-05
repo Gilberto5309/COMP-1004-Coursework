@@ -10,6 +10,13 @@ $(document).ready(function () {
     //hide the login and register form they will be shown on the myAccount page
     $('.login').hide();
     $('.register').hide();
+    $('.schedule').hide();
+
+    //This will display your current schedule
+    function schedule() {
+
+
+    }
 
 
     //Function for changing to the accountMenu screen of the SPA
@@ -56,6 +63,7 @@ $(document).ready(function () {
 
         }
 
+
         //when the sign in button is pressed the sign in form will be displayed
         signInButton.click(function () {
             $('.login').show();
@@ -64,6 +72,13 @@ $(document).ready(function () {
             registerButton.remove();
 
             $('.content').hide();
+
+            //Set up what happens when you submit
+            $(".login").submit(function () {
+                $(".login").hide();
+                $(".schedule").show();
+            });
+
         });
 
         //when the register button is pressed the register form will appear
@@ -92,13 +107,16 @@ $(document).ready(function () {
         //change the content of both the tags to text for the supportMenu screen
         contenth1.textContent = "Support";
 
-        contentp.textContent = "This is an application that will allow you to manage your time by adding your daily activities to a schedule";
+        contentp.textContent = "This is an application that will allow you to manage your time by adding your daily activities to a schedule. On the account menu you can register an account or sign in. Your schedules will be linked to your account and you can update the schedule and will receive feedback on how healthy your time management is and the site will give suggestions for improvements.";
 
         //hide the form
         $('.login').hide();
 
         //hide register form
         $('.register').hide();
+
+        //hide the schedule form if open
+        $('.schedule').hide();
 
         //show the content back on the page
         $('.content').show();
@@ -134,6 +152,9 @@ $(document).ready(function () {
 
         //hide the register form
         $('.register').hide();
+
+        //hide the schedule form if open
+        $('.schedule').hide();
 
         //show the content back on the page
         $('.content').show();

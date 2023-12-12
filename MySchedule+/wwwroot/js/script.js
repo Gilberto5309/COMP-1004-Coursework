@@ -74,10 +74,10 @@ $(document).ready(function () {
             $('.content').hide();
 
             //Set up what happens when you submit
-            $(".login").submit(function () {
-                $(".login").hide();
-                $(".schedule").show();
-            });
+            //$(".login").submit(function () {
+            //    $(".login").hide();
+            //    $(".schedule").show();
+            //});
 
         });
 
@@ -89,6 +89,15 @@ $(document).ready(function () {
             registerButton.remove();
 
             $('.content').hide();
+
+            var username = document.getElementById("register-username").value;
+            var password = document.getElementById("register-password").value;
+
+            $(".register").submit(function () {
+                $(".register").hide();
+                $(".schedule").show();
+            });
+
         });
     }
 

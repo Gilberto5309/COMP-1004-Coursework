@@ -133,10 +133,7 @@ button:hover span {
     width: 100%;
 }
 
-
-<<<<<<< Updated upstream
-
-input[type=text] {
+input[type=text]{
     width: 40%;
     padding: 12px 20px;
     margin: 8px 0;
@@ -144,16 +141,18 @@ input[type=text] {
     color: white;
     border-radius: 8px;
     border: 2px solid rgb(102, 41, 41);
+    text-align: center;
 }
 
 input[type=number] {
-    width: 10%;
+    width: 5%;
     padding: 12px 20px;
     margin: 8px 0;
     background-color: rgb(201, 143, 66);
     color: white;
     border-radius: 8px;
     border: 2px solid rgb(102, 41, 41);
+    text-align: center;
 }
 
 input[type=submit] {
@@ -167,16 +166,17 @@ input[type=submit] {
 }
 
 .login {
-    padding: 20px;
+    padding: 10px;
     align-items: center;
     justify-content: center;
     margin-top: 8%;
     background-color: rgb(204, 156, 92);
     width: 40%;
-    height: 45%;
+    height: 60%;
     margin-left: 30%;
     border: 3px solid rgb(102, 41, 41);
     color: white;
+    
 }
 
 .register {
@@ -210,7 +210,6 @@ form {
     display: flex;
     flex-direction: column;
     gap: 10px;
-<<<<<<< Updated upstream
 }
 
 

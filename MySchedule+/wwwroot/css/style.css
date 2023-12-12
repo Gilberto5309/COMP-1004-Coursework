@@ -1,5 +1,6 @@
 html {
-  font-size: 14px;
+    font-size: 14px;
+    background-color: palegoldenrod;
 }
 
 @media (min-width: 768px) {
@@ -19,6 +20,8 @@ html {
 
 body {
   margin-bottom: 60px;
+  overflow-x: hidden;
+  margin: 0;
 }
 
 .navbar {
@@ -73,8 +76,9 @@ body h1 {
 
 .banner {
     width: 100%;
-    height: 100vh;
+    height: 120vh;
     background-color: palegoldenrod;
+    padding-bottom: 0px;
 }
 
 .content {
@@ -130,9 +134,20 @@ button:hover span {
 }
 
 
+<<<<<<< Updated upstream
 
 input[type=text] {
     width: 40%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    background-color: rgb(201, 143, 66);
+    color: white;
+    border-radius: 8px;
+    border: 2px solid rgb(102, 41, 41);
+}
+
+input[type=number] {
+    width: 10%;
     padding: 12px 20px;
     margin: 8px 0;
     background-color: rgb(201, 143, 66);
@@ -190,13 +205,16 @@ input[type=submit] {
     color: white;
 }
 
+
 form {
     display: flex;
     flex-direction: column;
     gap: 10px;
+<<<<<<< Updated upstream
 }
 
 
 label {
     font-weight: bold;
 }
+

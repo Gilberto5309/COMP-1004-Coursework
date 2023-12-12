@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "vldVGi6sLt62EZydpCbMyWlmP4K1AZGyjhlYdjKaOqU=",
+  "Hash": "98KK/FNS6Ui4zb37170Jv5Zb7S0MY85xQmFQI3WTY4k=",
   "Source": "Myschedule+",
   "BasePath": "_content/Myschedule+",
   "Mode": "Default",
@@ -117,6 +117,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\js\\script.js"
+    },
+    {
+      "Identity": "C:\\Users\\jjc19\\OneDrive\\Documents\\GitHub\\COMP-1004-Coursework\\MySchedule+\\wwwroot\\json files\\account.json",
+      "SourceId": "Myschedule+",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\jjc19\\OneDrive\\Documents\\GitHub\\COMP-1004-Coursework\\MySchedule+\\wwwroot\\",
+      "BasePath": "_content/Myschedule+",
+      "RelativePath": "json files/account.json",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\json files\\account.json"
     },
     {
       "Identity": "C:\\Users\\jjc19\\OneDrive\\Documents\\GitHub\\COMP-1004-Coursework\\MySchedule+\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.css",

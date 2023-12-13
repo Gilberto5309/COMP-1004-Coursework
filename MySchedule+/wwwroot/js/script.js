@@ -92,19 +92,23 @@ $(document).ready(function () {
 
             $(".register").submit(function (event) {
 
-                event.preventDefault();
-
                 var username = $("#register-username").val();
                 var password = $("#register-password").val();
 
-                var data = {
+                $('.register').hide();
+                $('.content').show();
+
+                var accountobject = {
                     username: username,
                     password: password
                 };
 
-                
-
+                fetch('/json/account.json')
+                    .then((response) => response.json())
+                    .then((json) => console.log(json));
             });
+
+            
 
         });
     }

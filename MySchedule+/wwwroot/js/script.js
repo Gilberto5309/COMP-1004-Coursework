@@ -85,27 +85,49 @@ $(document).ready(function () {
         registerButton.click(function () {
             $('.register').show();
 
+            //remove the buttons from the screen
             signInButton.remove();
             registerButton.remove();
 
+            //hide the content from the screen
             $('.content').hide();
 
+            //if the submit button is pressed run the following function
             $(".register").submit(function (event) {
 
+                //get the username and password from the input field
                 var username = $("#register-username").val();
                 var password = $("#register-password").val();
 
+                //hide the register form
                 $('.register').hide();
+                //show the content again
                 $('.content').show();
 
+                //create an object to store the new username and password
                 var accountobject = {
                     username: username,
                     password: password
                 };
 
-                fetch('/json/account.json')
-                    .then((response) => response.json())
-                    .then((json) => console.log(json));
+                //read the json file and store the object data as a string
+                const fs = require("fs");
+
+                fs.readFile("/json/account.json", "utf8", (err, data) => {
+                    if (err) {
+                        window.alert("The file could not be read from", err);
+                    }
+
+                    const accountData = JSON.stringify(data);
+
+                    accountData += JSON.stringify(accountObject);
+
+                    fs.writeFile("/json/account.json", "utf8", (err, data) => {
+                        if (err {
+                            window.alert();
+                        })
+                    })
+                });
             });
 
             

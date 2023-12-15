@@ -65,7 +65,12 @@ $(document).ready(function () {
 
 
         //when the sign in button is pressed the sign in form will be displayed
-        signInButton.click(function () {
+        signInButton.click(function (event) {
+
+            //prevent default action
+            event.preventDefault()
+
+
             $('.login').show();
 
             signInButton.remove();
@@ -82,7 +87,11 @@ $(document).ready(function () {
         });
 
         //when the register button is pressed the register form will appear
-        registerButton.click(function () {
+        registerButton.click(function (event) {
+
+            //prevent default action
+            event.preventDefault()
+
             $('.register').show();
 
             //remove the buttons from the screen
@@ -94,7 +103,8 @@ $(document).ready(function () {
 
             //if the submit button is pressed run the following function
             $(".register").submit(function (event) {
-
+                //prevent default form submission
+                event.preventDefault()
                 //get the username and password from the input field
                 var username = $("#register-username").val();
                 var password = $("#register-password").val();
@@ -110,24 +120,35 @@ $(document).ready(function () {
                     password: password
                 };
 
-                //read the json file and store the object data as a string
-                const fs = require("fs");
+                //store the data from the json file
+                let jsonData = {};
 
-                fs.readFile("/json/account.json", "utf8", (err, data) => {
-                    if (err) {
-                        window.alert("The file could not be read from", err);
-                    }
+                fetch('/json/account.json')
+                    .then((response) => response.json())
+                    .then((json) => {
 
-                    const accountData = JSON.stringify(data);
+                        //turn the data into a javascript object
+                        jsonData = json
 
-                    accountData += JSON.stringify(accountObject);
+                        //add the new object to the array
+                        jsonData.push(accountobject);
 
-                    fs.writeFile("/json/account.json", "utf8", (err, data) => {
-                        if (err {
-                            window.alert();
-                        })
+                        const newData = JSON.stringify(jsonData, null, 2);
+
+                        console.log(newData);
+
+                        return fetch('/json/account.json', {
+                            method: 'POST',
+                            body: newData,
+                        });
                     })
-                });
+                    .then(() => {
+                          console.log('Data has been written back to the JSON file.');
+                    })
+                    .catch((error) => {
+                          console.error('Error: ', error);
+                    });
+                      
             });
 
             

@@ -41,8 +41,6 @@ C:\Users\jjc19\OneDrive\Documents\GitHub\COMP-1004-Coursework\MySchedule+\obj\De
 C:\Users\jjc19\OneDrive\Documents\GitHub\COMP-1004-Coursework\MySchedule+\obj\Debug\net7.0\Myschedule+.AssemblyInfo.cs
 C:\Users\jjc19\OneDrive\Documents\GitHub\COMP-1004-Coursework\MySchedule+\obj\Debug\net7.0\Myschedule+.csproj.CoreCompileInputs.cache
 C:\Users\jjc19\OneDrive\Documents\GitHub\COMP-1004-Coursework\MySchedule+\obj\Debug\net7.0\Myschedule+.MvcApplicationPartsAssemblyInfo.cache
-C:\Users\jjc19\OneDrive\Documents\GitHub\COMP-1004-Coursework\MySchedule+\obj\Debug\net7.0\Myschedule+.RazorAssemblyInfo.cache
-C:\Users\jjc19\OneDrive\Documents\GitHub\COMP-1004-Coursework\MySchedule+\obj\Debug\net7.0\Myschedule+.RazorAssemblyInfo.cs
 C:\Users\jjc19\OneDrive\Documents\GitHub\COMP-1004-Coursework\MySchedule+\obj\Debug\net7.0\staticwebassets\msbuild.Myschedule+.Microsoft.AspNetCore.StaticWebAssets.props
 C:\Users\jjc19\OneDrive\Documents\GitHub\COMP-1004-Coursework\MySchedule+\obj\Debug\net7.0\staticwebassets\msbuild.build.Myschedule+.props
 C:\Users\jjc19\OneDrive\Documents\GitHub\COMP-1004-Coursework\MySchedule+\obj\Debug\net7.0\staticwebassets\msbuild.buildMultiTargeting.Myschedule+.props
@@ -50,9 +48,7 @@ C:\Users\jjc19\OneDrive\Documents\GitHub\COMP-1004-Coursework\MySchedule+\obj\De
 C:\Users\jjc19\OneDrive\Documents\GitHub\COMP-1004-Coursework\MySchedule+\obj\Debug\net7.0\staticwebassets.pack.json
 C:\Users\jjc19\OneDrive\Documents\GitHub\COMP-1004-Coursework\MySchedule+\obj\Debug\net7.0\staticwebassets.build.json
 C:\Users\jjc19\OneDrive\Documents\GitHub\COMP-1004-Coursework\MySchedule+\obj\Debug\net7.0\staticwebassets.development.json
-C:\Users\jjc19\OneDrive\Documents\GitHub\COMP-1004-Coursework\MySchedule+\obj\Debug\net7.0\scopedcss\Pages\Shared\_Layout.cshtml.rz.scp.css
 C:\Users\jjc19\OneDrive\Documents\GitHub\COMP-1004-Coursework\MySchedule+\obj\Debug\net7.0\scopedcss\bundle\Myschedule+.styles.css
-C:\Users\jjc19\OneDrive\Documents\GitHub\COMP-1004-Coursework\MySchedule+\obj\Debug\net7.0\scopedcss\projectbundle\Myschedule+.bundle.scp.css
 C:\Users\jjc19\OneDrive\Documents\GitHub\COMP-1004-Coursework\MySchedule+\obj\Debug\net7.0\Myschedule+.dll
 C:\Users\jjc19\OneDrive\Documents\GitHub\COMP-1004-Coursework\MySchedule+\obj\Debug\net7.0\refint\Myschedule+.dll
 C:\Users\jjc19\OneDrive\Documents\GitHub\COMP-1004-Coursework\MySchedule+\obj\Debug\net7.0\Myschedule+.pdb

@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "KIjeLVt75Wi0QtMoke2RS5pwvCRoBNIvdf6JpUmdMno=",
+  "Hash": "icbojDqKyqC1el839cxIlN0J1IcUgZSjkRt8zhLte8o=",
   "Source": "Myschedule+",
   "BasePath": "_content/Myschedule+",
   "Mode": "Default",
@@ -16,40 +16,6 @@
     }
   ],
   "Assets": [
-    {
-      "Identity": "C:\\Users\\jjc19\\OneDrive\\Documents\\GitHub\\COMP-1004-Coursework\\MySchedule+\\obj\\Debug\\net7.0\\scopedcss\\bundle\\Myschedule+.styles.css",
-      "SourceId": "Myschedule+",
-      "SourceType": "Computed",
-      "ContentRoot": "C:\\Users\\jjc19\\OneDrive\\Documents\\GitHub\\COMP-1004-Coursework\\MySchedule+\\obj\\Debug\\net7.0\\scopedcss\\bundle\\",
-      "BasePath": "_content/Myschedule+",
-      "RelativePath": "Myschedule+.styles.css",
-      "AssetKind": "All",
-      "AssetMode": "CurrentProject",
-      "AssetRole": "Primary",
-      "RelatedAsset": "",
-      "AssetTraitName": "ScopedCss",
-      "AssetTraitValue": "ApplicationBundle",
-      "CopyToOutputDirectory": "Never",
-      "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "C:\\Users\\jjc19\\OneDrive\\Documents\\GitHub\\COMP-1004-Coursework\\MySchedule+\\obj\\Debug\\net7.0\\scopedcss\\bundle\\Myschedule+.styles.css"
-    },
-    {
-      "Identity": "C:\\Users\\jjc19\\OneDrive\\Documents\\GitHub\\COMP-1004-Coursework\\MySchedule+\\obj\\Debug\\net7.0\\scopedcss\\projectbundle\\Myschedule+.bundle.scp.css",
-      "SourceId": "Myschedule+",
-      "SourceType": "Computed",
-      "ContentRoot": "C:\\Users\\jjc19\\OneDrive\\Documents\\GitHub\\COMP-1004-Coursework\\MySchedule+\\obj\\Debug\\net7.0\\scopedcss\\projectbundle\\",
-      "BasePath": "_content/Myschedule+",
-      "RelativePath": "Myschedule+.bundle.scp.css",
-      "AssetKind": "All",
-      "AssetMode": "Reference",
-      "AssetRole": "Primary",
-      "RelatedAsset": "",
-      "AssetTraitName": "ScopedCss",
-      "AssetTraitValue": "ProjectBundle",
-      "CopyToOutputDirectory": "Never",
-      "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "C:\\Users\\jjc19\\OneDrive\\Documents\\GitHub\\COMP-1004-Coursework\\MySchedule+\\obj\\Debug\\net7.0\\scopedcss\\projectbundle\\Myschedule+.bundle.scp.css"
-    },
     {
       "Identity": "C:\\Users\\jjc19\\OneDrive\\Documents\\GitHub\\COMP-1004-Coursework\\MySchedule+\\wwwroot\\css\\style.css",
       "SourceId": "Myschedule+",
@@ -117,6 +83,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\js\\script.js"
+    },
+    {
+      "Identity": "C:\\Users\\jjc19\\OneDrive\\Documents\\GitHub\\COMP-1004-Coursework\\MySchedule+\\wwwroot\\js\\server.js",
+      "SourceId": "Myschedule+",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\jjc19\\OneDrive\\Documents\\GitHub\\COMP-1004-Coursework\\MySchedule+\\wwwroot\\",
+      "BasePath": "_content/Myschedule+",
+      "RelativePath": "js/server.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\js\\server.js"
     },
     {
       "Identity": "C:\\Users\\jjc19\\OneDrive\\Documents\\GitHub\\COMP-1004-Coursework\\MySchedule+\\wwwroot\\json\\account.json",

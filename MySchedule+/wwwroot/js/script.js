@@ -104,7 +104,7 @@ $(document).ready(function () {
             //if the submit button is pressed run the following function
             $(".register").submit(function (event) {
                 //prevent default form submission
-                event.preventDefault()
+                event.preventDefault();
                 //get the username and password from the input field
                 var username = $("#register-username").val();
                 var password = $("#register-password").val();
@@ -115,40 +115,19 @@ $(document).ready(function () {
                 $('.content').show();
 
                 //create an object to store the new username and password
-                var accountobject = {
+                var accountObject = {
                     username: username,
                     password: password
                 };
 
-                //store the data from the json file
-                let jsonData = {};
+                const fs = require('fs');
 
-                fetch('/json/account.json')
-                    .then((response) => response.json())
-                    .then((json) => {
+                $.get('/json/account.json', function (data) {
 
-                        //turn the data into a javascript object
-                        jsonData = json
+                    data.push(accountObject);
 
-                        //add the new object to the array
-                        jsonData.push(accountobject);
-
-                        const newData = JSON.stringify(jsonData, null, 2);
-
-                        console.log(newData);
-
-                        return fetch('/json/account.json', {
-                            method: 'POST',
-                            body: newData,
-                        });
-                    })
-                    .then(() => {
-                          console.log('Data has been written back to the JSON file.');
-                    })
-                    .catch((error) => {
-                          console.error('Error: ', error);
-                    });
-                      
+                    
+                })
             });
 
             

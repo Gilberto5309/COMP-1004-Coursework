@@ -120,13 +120,15 @@ $(document).ready(function () {
                     password: password
                 };
 
-                const fs = require('fs');
+    
 
                 $.get('/json/account.json', function (data) {
 
                     data.push(accountObject);
 
-                    
+                    $.post('/json/account.json', data, function () {
+                        console.log("Json data updated");
+                    })
                 })
             });
 

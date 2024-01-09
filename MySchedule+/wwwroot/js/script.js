@@ -3,7 +3,8 @@
 
 // Write your JavaScript code.
 
-
+var _username;
+var _password;
 $(document).ready(function () {
 
 
@@ -22,6 +23,7 @@ $(document).ready(function () {
     //Function for changing to the accountMenu screen of the SPA
     function accountMenu() {
 
+     
         //use querySelector to assign html elements to variables so they can be altered
         var myAccount = document.querySelector("#myAccount");
 
@@ -106,42 +108,20 @@ $(document).ready(function () {
                 //prevent default form submission
                 event.preventDefault();
                 //get the username and password from the input field
-                var username = $("#register-username").val();
-                var password = $("#register-password").val();
+                _username = $("#register-username").val();
+                _password = $("#register-password").val();
 
+                module.exports = {
+                    _username,
+                    _password
+                };
                 //hide the register form
                 $('.register').hide();
                 //show the content again
                 $('.content').show();
-                //import fs module
-                const fs = require('fs');
-                //make sure that no fields have been left empty
-                if (username && password) {
-                    //create an object to store the new username and password
-                    var accountObject = {
-                        username: username,
-                        password: password
-                    };
-                    //get the data currently in the file
-                    $.get("/json/account.json", function (data) {
-
-                        data.push(accountObject);
-
-                        $.post('/json/account.json', JSON.stringify(data, 2, null), (err) => {
-
-                            if (err) {
-                                console.log("Error writing to file");
-                            }
-                            else {
-                                console.log("Data written successfully");
-                            }
-                        })
-                    })
-                }
+                
             });
-
-            
-
+     
         });
     }
 
@@ -219,6 +199,8 @@ $(document).ready(function () {
         registerButton.remove();
 
     }
+
+
 
     //Add event listeners to the tags used for navigation so that when they are clicked the screen will change
     myAccount.addEventListener("click", accountMenu);

@@ -113,23 +113,31 @@ $(document).ready(function () {
                 $('.register').hide();
                 //show the content again
                 $('.content').show();
+                //import fs module
+                const fs = require('fs');
+                //make sure that no fields have been left empty
+                if (username && password) {
+                    //create an object to store the new username and password
+                    var accountObject = {
+                        username: username,
+                        password: password
+                    };
+                    //get the data currently in the file
+                    $.get("/json/account.json", function (data) {
 
-                //create an object to store the new username and password
-                var accountObject = {
-                    username: username,
-                    password: password
-                };
+                        data.push(accountObject);
 
-    
+                        $.post('/json/account.json', JSON.stringify(data, 2, null), (err) => {
 
-                $.get('/json/account.json', function (data) {
-
-                    data.push(accountObject);
-
-                    $.post('/json/account.json', data, function () {
-                        console.log("Json data updated");
+                            if (err) {
+                                console.log("Error writing to file");
+                            }
+                            else {
+                                console.log("Data written successfully");
+                            }
+                        })
                     })
-                })
+                }
             });
 
             

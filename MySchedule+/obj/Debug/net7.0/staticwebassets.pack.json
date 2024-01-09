@@ -17,10 +17,6 @@
       "PackagePath": "staticwebassets\\js\\script.js"
     },
     {
-      "Id": "C:\\Users\\jjc19\\OneDrive\\Documents\\GitHub\\COMP-1004-Coursework\\MySchedule+\\wwwroot\\js\\server.js",
-      "PackagePath": "staticwebassets\\js\\server.js"
-    },
-    {
       "Id": "C:\\Users\\jjc19\\OneDrive\\Documents\\GitHub\\COMP-1004-Coursework\\MySchedule+\\wwwroot\\json\\account.json",
       "PackagePath": "staticwebassets\\json\\account.json"
     },

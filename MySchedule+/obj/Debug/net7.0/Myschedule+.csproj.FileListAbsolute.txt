@@ -84,6 +84,6 @@ C:\Comp 1004\COMP-1004\MySchedule+\obj\Debug\net7.0\refint\Myschedule+.dll
 C:\Comp 1004\COMP-1004\MySchedule+\obj\Debug\net7.0\Myschedule+.pdb
 C:\Comp 1004\COMP-1004\MySchedule+\obj\Debug\net7.0\Myschedule+.genruntimeconfig.cache
 C:\Comp 1004\COMP-1004\MySchedule+\obj\Debug\net7.0\ref\Myschedule+.dll
-C:\Users\jjc19\OneDrive\Documents\GitHub\COMP-1004-Coursework\MySchedule+\bin\Debug\net7.0\wwwroot\json\account.json
 C:\Users\jjc19\OneDrive\Documents\GitHub\COMP-1004-Coursework\MySchedule+\bin\Debug\net7.0\package-lock.json
 C:\Users\jjc19\OneDrive\Documents\GitHub\COMP-1004-Coursework\MySchedule+\bin\Debug\net7.0\package.json
+C:\Users\jjc19\OneDrive\Documents\GitHub\COMP-1004-Coursework\MySchedule+\bin\Debug\net7.0\wwwroot\js\account.json

@@ -3,8 +3,6 @@
 
 // Write your JavaScript code.
 
-var _username;
-var _password;
 $(document).ready(function () {
 
 
@@ -103,23 +101,57 @@ $(document).ready(function () {
             //hide the content from the screen
             $('.content').hide();
 
+            //create username and password variables
+            var _username;
+            var _password;
+
             //if the submit button is pressed run the following function
             $(".register").submit(function (event) {
                 //prevent default form submission
                 event.preventDefault();
-                //get the username and password from the input field
-                _username = $("#register-username").val();
-                _password = $("#register-password").val();
 
-                module.exports = {
-                    _username,
-                    _password
-                };
-                //hide the register form
-                $('.register').hide();
-                //show the content again
-                $('.content').show();
-                
+                //disable the submit button to stop multiple entries in one go
+                $(".register-submit").prop("disabled", true);
+
+                //get the username and password from the input field
+                var _username = $("#register-username").val();
+                var _password = $("#register-password").val();
+
+                //retrieve the existing data from local storage
+                var accountData = JSON.parse(localStorage.getItem("accounts.json")) || [];
+
+                // check if the username already exists
+                var usernameExists = accountData.some(function (account) {
+                    return account.username.trim().toLowerCase() === _username.toLowerCase();
+                });
+
+                //if the username is not already taken
+                if (!usernameExists) {
+
+                    //let the user know their account has been created
+                    alert("Account created");
+                    //add the data from the username and password field into an object
+                    var accountObject = {
+                        username: _username,
+                        password: _password
+                    };
+
+                    //push the object into the array of data
+                    accountData.push(accountObject);
+
+                    //store the updated data into the local storage in JSON format
+                    localStorage.setItem('accounts.json', JSON.stringify(accountData, null, 2));
+
+                    //hide the register form
+                    $('.register').hide();
+                    //show the content again
+                    $('.content').show();
+                }else {
+                    alert("Username already exists please choose a different one.");
+                }
+
+                //enable register submition again
+                $(".register-submit").prop("disabled", false);
             });
      
         });

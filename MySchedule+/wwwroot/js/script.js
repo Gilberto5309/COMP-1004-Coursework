@@ -14,7 +14,15 @@ $(document).ready(function () {
     //This will display your current schedule
     function schedule() {
 
+        //store all the values from the fields
+        var activity1 = $("#activity1").val();
+        var quantity1 = $("#quantity").val();
 
+        var activity2 = $("#activity2").val();
+        var quantity2 = $("#quantity2").val();
+
+        var activity3 = $("#activity3").val();
+        var quantity3 = $("#quantity3").val();
     }
 
 
@@ -114,8 +122,8 @@ $(document).ready(function () {
                 $(".register-submit").prop("disabled", true);
 
                 //get the username and password from the input field
-                var _username = $("#register-username").val();
-                var _password = $("#register-password").val();
+                _username = $("#register-username").val();
+                _password = $("#register-password").val();
 
                 //retrieve the existing data from local storage
                 var accountData = JSON.parse(localStorage.getItem("accounts.json")) || [];

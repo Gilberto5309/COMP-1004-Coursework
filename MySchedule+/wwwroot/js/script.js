@@ -12,17 +12,54 @@ $(document).ready(function () {
     $('.schedule').hide();
 
     //This will display your current schedule
-    function schedule() {
+    function scheduleStore() {
 
         //store all the values from the fields
+        var scheduleTitle = $("#scheduleTitle").val();
+
         var activity1 = $("#activity1").val();
-        var quantity1 = $("#quantity").val();
+        var time1 = $("#quantity").val();
 
         var activity2 = $("#activity2").val();
-        var quantity2 = $("#quantity2").val();
+        var time2 = $("#quantity2").val();
 
         var activity3 = $("#activity3").val();
-        var quantity3 = $("#quantity3").val();
+        var time3 = $("#quantity3").val();
+
+        //create an object to store all the activity data
+        var activities = [
+            [activity1, time1],
+            [activity2, time2],
+            [activity3, time3]
+        ]
+
+        console.log("hello2");
+
+        //get the data from local storage as an array
+        var schedules = JSON.parse(localStorage.getItem("schedules.json")) || [];
+
+        //make sure the schedule title is unique
+        if (schedules.some(schedule => schedules.scheduleTitle === scheduleTitle)) {
+            alert("Schedule title must be unique");
+        }
+        //if it is unique add data to the schedules array with a title and add it to local storage
+        else {
+
+            schedules.push({ scheduleTitle, activities });
+
+            localStorage.setItem("schedules.json", JSON.stringify(schedules, null, 2));
+
+            alert("Schedules successfully added");
+
+            //hide the register form
+            $('.schedule').hide();
+            //show the content again
+            $('.content').show();
+        }
+
+
+        
+
     }
 
 
@@ -87,9 +124,29 @@ $(document).ready(function () {
             $('.content').hide();
 
             //Set up what happens when you submit
-            $(".login").submit(function () {
+            $(".login").submit(function (event) {
+                //prevent default action
+                event.preventDefault()
+
+                //disable the submit button to stop multiple entries in one go
+                $("#login-submit").prop("disabled", true);
+
+                //enable register submition again
+                $("#login-submit").prop("disabled", false);
+
+                //hide login form and display schedule form
                 $(".login").hide();
                 $(".schedule").show();
+            });
+
+            $(".schedule").submit(function (event) {
+                console.log("hello1");
+                //disable the submit button to stop multiple entries in one go
+                $("#schedule-submit").prop("disabled", true);
+                //run the store schedule function
+                scheduleStore();
+                //enable register submition again
+                $("#schedule-submit").prop("disabled", false);
             });
 
         });
@@ -119,7 +176,7 @@ $(document).ready(function () {
                 event.preventDefault();
 
                 //disable the submit button to stop multiple entries in one go
-                $(".register-submit").prop("disabled", true);
+                $("#register-submit").prop("disabled", true);
 
                 //get the username and password from the input field
                 _username = $("#register-username").val();
@@ -134,7 +191,7 @@ $(document).ready(function () {
                 });
 
                 //if the username is not already taken
-                if (!usernameExists) {
+                if (!usernameExists && _username != "" && _password != "") {
 
                     //let the user know their account has been created
                     alert("Account created");
@@ -154,14 +211,19 @@ $(document).ready(function () {
                     $('.register').hide();
                     //show the content again
                     $('.content').show();
-                }else {
+                }
+                //if username or password field are left blank tell user to please fill in the fields
+                else if (_username == "" || _password == "") {
+                    alert("Please fill in both fields.");
+                }
+                //if username already exists tell user to use a different username and password
+                else {
                     alert("Username already exists please choose a different one.");
                 }
 
                 //enable register submition again
-                $(".register-submit").prop("disabled", false);
+                $("#register-submit").prop("disabled", false);
             });
-     
         });
     }
 

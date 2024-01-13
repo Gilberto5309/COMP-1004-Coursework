@@ -11,6 +11,31 @@ $(document).ready(function () {
     $('.register').hide();
     $('.schedule').hide();
 
+    function validateSignIn(user, pass) {
+
+        //Get all the registered accounts from the json file in local storage
+        var accounts = JSON.parse(localStorage.getItem("accounts.json")) || [];
+
+        //traverse the array of accounts and find a matching username and password
+        for (var i = 0; i < accounts.length; i++){
+            //check for username
+            if (user === accounts[i].username) {
+                //check that the password is also correct
+                if (pass === accounts[i].password) {
+                    //return true if both fields are correct
+                    return true;
+                } else {
+                    //if password is incorrect return false
+                    return false;
+                }
+            } else {
+                //if username is wrong return false
+                return false;
+            }
+        }
+
+    }
+
     //This will display your current schedule
     function scheduleStore() {
 
@@ -32,8 +57,6 @@ $(document).ready(function () {
             [activity2, time2],
             [activity3, time3]
         ]
-
-        console.log("hello2");
 
         //get the data from local storage as an array
         var schedules = JSON.parse(localStorage.getItem("schedules.json")) || [];
@@ -131,16 +154,38 @@ $(document).ready(function () {
                 //disable the submit button to stop multiple entries in one go
                 $("#login-submit").prop("disabled", true);
 
+                //create variables to store field data
+                var _username;
+                var _password;
+
+                //get data from both fields entered
+                _username = $("#login-username").val();
+                _password = $("#login-password").val();
+
+                //run the account login validater
+                var logInStatus = validateSignIn(_username, _password);
+
+                //check if login is valid or not
+                if (logInStatus == true) {
+                    //hide login form and display schedule form
+                    alert("Log in successful");
+                    $(".login").hide();
+                    $(".schedule").show();
+                }
+                //if username or password field are left blank tell user to please fill in the fields
+                else if (_username == "" || _password == "") {
+                    alert("Please fill in both fields.");
+                }
+                else {
+                    alert("Incorrect username or password, please enter the correct details");
+                }
                 //enable register submition again
                 $("#login-submit").prop("disabled", false);
 
-                //hide login form and display schedule form
-                $(".login").hide();
-                $(".schedule").show();
+                
             });
 
             $(".schedule").submit(function (event) {
-                console.log("hello1");
                 //disable the submit button to stop multiple entries in one go
                 $("#schedule-submit").prop("disabled", true);
                 //run the store schedule function

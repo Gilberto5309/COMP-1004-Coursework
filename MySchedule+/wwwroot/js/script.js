@@ -170,7 +170,21 @@ $(document).ready(function () {
                     //hide login form and display schedule form
                     alert("Log in successful");
                     $(".login").hide();
-                    $(".schedule").show();
+
+                    //change the content of both tags to the text for the schedule screen
+                    contenth1.textContent = "Your Schedules";
+
+                    contentp.textContent = "Access, create or delete your schedules here.";
+
+                    //create buttons for schedule
+                    var accessScheduleButton = $('<button id="accessSchedule">Access Schedule</button>');
+                    var createScheduleButton = $('<button id="createSchedule">Create Schedule</button>');
+                    var deleteScheduleButton = $('<button id="deleteSchedule">Delete Schedule</button>');
+
+                    $('.content').append(accessScheduleButton, createScheduleButton, deleteScheduleButton);
+
+                    $(".content").show();
+
                 }
                 //if username or password field are left blank tell user to please fill in the fields
                 else if (_username == "" || _password == "") {

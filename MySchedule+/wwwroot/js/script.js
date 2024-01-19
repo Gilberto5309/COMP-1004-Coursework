@@ -65,6 +65,9 @@ $(document).ready(function () {
         if (schedules.some(schedule => schedules.scheduleTitle === scheduleTitle)) {
             alert("Schedule title must be unique");
         }
+        else if (activity1 == "" || activity2 == "" || activity3 == "" || time1 == "" || time2 == "" || time3 == "") {
+            alert("Please fill in all fields");
+        }
         //if it is unique add data to the schedules array with a title and add it to local storage
         else {
 
@@ -168,7 +171,7 @@ $(document).ready(function () {
                 //check if login is valid or not
                 if (logInStatus == true) {
                     //hide login form and display schedule form
-                    alert("Log in successful");
+                    alert("Log in successful a");
                     $(".login").hide();
 
                     //change the content of both tags to the text for the schedule screen

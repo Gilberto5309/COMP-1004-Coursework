@@ -35,7 +35,7 @@ $(document).ready(function () {
         }
 
     }
-
+  
     //This will display your current schedule
     function scheduleStore() {
 
@@ -83,13 +83,32 @@ $(document).ready(function () {
             $('.content').show();
         }
 
-
-        
-
     }
 
+    //function to create a schedule
+    function createSchedule() {
+        //display the schedule form
+        $(".schedule").show();
+        scheduleStore();
+    }
 
-    //Function for changing to the accountMenu screen of the SPA
+    function viewSchedule(createButton, deleteButton, viewButton) {
+
+        //create a quick input capture for the name of the schedule
+        var scheduleLabel = $('<label for="schedule name">Enter your schedules name</label>');
+        var scheduleInput = $('<input type="text" id="scheduleInputTitle" name="scheduleInputTitle">');
+        //remove buttons
+        $(createButton).hide();
+        $(deleteButton).hide();
+        $(viewButton).hide();
+        //add new content 
+        $(".content").append(scheduleInput);
+        $(".content").append(scheduleLabel);
+        //take in an input for the name of the schedule you want to view
+        var scheduleSearch = "";
+    }
+
+    //Function for changing to the accountMenu screen of the SPA`
     function accountMenu() {
 
      
@@ -184,9 +203,34 @@ $(document).ready(function () {
                     var createScheduleButton = $('<button id="createSchedule">Create Schedule</button>');
                     var deleteScheduleButton = $('<button id="deleteSchedule">Delete Schedule</button>');
 
+                    //rewrite the new schedule
                     $('.content').append(accessScheduleButton, createScheduleButton, deleteScheduleButton);
-
+                    //display content
                     $(".content").show();
+
+                    //selection statements to check what button has been pressed
+                    createScheduleButton.click(function (event) {
+
+                        //prevent default action
+                        event.preventDefault();
+
+                        //hide the content
+                        $(".content").hide();
+
+                        //display schedule form
+                        createSchedule();
+
+                    });
+
+                    accessScheduleButton.click(function (event) {
+
+                        //prevent default action
+                        event.preventDefault();
+
+                        //run the view schedule function
+                        viewSchedule("#createSchedule", "#deleteSchedule", "#accessSchedule");
+                    })
+
 
                 }
                 //if username or password field are left blank tell user to please fill in the fields

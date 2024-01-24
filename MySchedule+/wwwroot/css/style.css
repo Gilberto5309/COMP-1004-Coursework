@@ -186,11 +186,11 @@ input[type=submit] {
     margin-left: 30%;
     border: 3px solid rgb(102, 41, 41);
     color: white;
-    
+    border-radius: 20px;
 }
 
 .register {
-    padding: 20px;  
+    padding: 20px;
     align-items: center;
     justify-content: center;
     margin-top: 8%;
@@ -200,6 +200,7 @@ input[type=submit] {
     margin-left: 30%;
     border: 3px solid rgb(102, 41, 41);
     color: white;
+    border-radius: 20px;
 }
 
 .schedule {
@@ -213,6 +214,7 @@ input[type=submit] {
     margin-left: 20%;
     border: 3px solid rgb(102, 41, 41);
     color: white;
+    border-radius: 20px;
 }
 
 #scheduleContainer {
@@ -227,11 +229,35 @@ input[type=submit] {
     border: 3px solid rgb(102, 41, 41);
     color: white;
     text-align: center;
-
+    font-size: 80px;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
 }
-
     #scheduleContainer h1 {
+        margin-bottom: 10px;
+        display: inline-block;
         color: white;
+    }
+
+    #scheduleContainer ul {
+
+        padding: 0px;
+        list-style: none;
+        
+    }
+        #scheduleContainer ul li {
+
+            padding: 10px;
+        }
+
+    #scheduleContainer button {
+        display: flex;
+        align-items: center; 
+        justify-content: center; 
+        width: 150px;
+        height: 50px; 
+        margin-top: 10px; 
     }
 
 form {

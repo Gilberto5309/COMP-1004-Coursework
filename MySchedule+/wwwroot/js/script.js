@@ -111,6 +111,8 @@ $(document).ready(function () {
             //retrieve the existing data from local storage
             var scheduleData = JSON.parse(localStorage.getItem("schedules.json")) || [];
 
+            var exitButton = $('<button id="exitButton">EXIT</button>');
+
             var desiredSchedule;
 
             // check if the schedule exists
@@ -134,7 +136,12 @@ $(document).ready(function () {
                 activitiesList.append(activityItem);
             });
 
-            scheduleContainer.append(titleElement, activitiesList);
+            scheduleContainer.append(titleElement, activitiesList, exitButton);
+
+
+            exitButton.click(function (event) {
+                $(scheduleContainer).hide();``
+            });
 
             $('#scheduleContainer').show();
         });
@@ -143,7 +150,9 @@ $(document).ready(function () {
     //Function for changing to the accountMenu screen of the SPA`
     function accountMenu() {
 
-     
+        //hide schedule page
+        $('#scheduleContainer').hide();
+
         //use querySelector to assign html elements to variables so they can be altered
         var myAccount = document.querySelector("#myAccount");
 
@@ -183,8 +192,14 @@ $(document).ready(function () {
             //add the button to the content div
             $('.content').append(registerButton);
 
+            
+
         }
 
+        var signInButton = document.querySelector("#signIn");
+        var registerButton = document.querySelector("#register");
+        $(signInButton).show();
+        $(registerButton).show();
 
         //when the sign in button is pressed the sign in form will be displayed
         signInButton.click(function (event) {
@@ -195,8 +210,8 @@ $(document).ready(function () {
 
             $('.login').show();
 
-            signInButton.remove();
-            registerButton.remove();
+            $('#signIn').hide();
+            $('#register').hide();
 
             $('.content').hide();
 
@@ -240,31 +255,8 @@ $(document).ready(function () {
                     //display content
                     $(".content").show();
 
-                    //selection statements to check what button has been pressed
-                    createScheduleButton.click(function (event) {
-
-                        //prevent default action
-                        event.preventDefault();
-
-                        //hide the content
-                        $(".content").hide();
-
-                        //display schedule form
-                        createSchedule();
-
-                    });
-
-                    accessScheduleButton.click(function (event) {
-
-                        //prevent default action
-                        event.preventDefault();
-
-                        //run the view schedule function
-                        viewSchedule("#createSchedule", "#deleteSchedule", "#accessSchedule");
-                    })
-
-
                 }
+
                 //if username or password field are left blank tell user to please fill in the fields
                 else if (_username == "" || _password == "") {
                     alert("Please fill in both fields.");
@@ -275,16 +267,30 @@ $(document).ready(function () {
                 //enable register submition again
                 $("#login-submit").prop("disabled", false);
 
-                
-            });
+                //selection statements to check what button has been pressed
+                createScheduleButton.click(function (event) {
 
-            $(".schedule").submit(function (event) {
-                //disable the submit button to stop multiple entries in one go
-                $("#schedule-submit").prop("disabled", true);
-                //run the store schedule function
-                scheduleStore();
-                //enable register submition again
-                $("#schedule-submit").prop("disabled", false);
+                    //prevent default action
+                    event.preventDefault();
+
+                    //hide the content
+                    $(".content").hide();
+
+                    //display schedule form
+                    createSchedule();
+
+                });
+
+                accessScheduleButton.click(function (event) {
+
+                    //prevent default action
+                    event.preventDefault();
+
+                    //run the view schedule function
+                    viewSchedule("#createSchedule", "#deleteSchedule", "#accessSchedule");
+                })
+
+                
             });
 
         });
@@ -391,14 +397,17 @@ $(document).ready(function () {
         //hide the schedule form if open
         $('.schedule').hide();
 
+        //hide schedule page
+        $('#scheduleContainer').hide();
+
         //show the content back on the page
         $('.content').show();
 
-        //remove any created buttons
+        //hide created buttons
         var signInButton = document.querySelector("#signIn");
-        signInButton.remove();
+        $(signInButton).hide();
         var registerButton = document.querySelector("#register");
-        registerButton.remove();
+        $(registerButton).hide();
 
 
     }
@@ -429,14 +438,17 @@ $(document).ready(function () {
         //hide the schedule form if open
         $('.schedule').hide();
 
+        //hide schedule page
+        $('#scheduleContainer').hide();
+
         //show the content back on the page
         $('.content').show();
 
         //remove any created buttons
         var signInButton = document.querySelector("#signIn");
-        signInButton.remove();
+        $(signInButton).hide();
         var registerButton = document.querySelector("#register");
-        registerButton.remove();
+        $(registerButton).hide();
 
     }
 

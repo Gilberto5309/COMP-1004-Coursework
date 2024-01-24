@@ -10,7 +10,8 @@ $(document).ready(function () {
     $('.login').hide();
     $('.register').hide();
     $('.schedule').hide();
-
+    $('.scheduleSearch').hide();
+    $('#scheduleContainer').hide();
     function validateSignIn(user, pass) {
 
         //Get all the registered accounts from the json file in local storage
@@ -94,18 +95,49 @@ $(document).ready(function () {
 
     function viewSchedule(createButton, deleteButton, viewButton) {
 
-        //create a quick input capture for the name of the schedule
-        var scheduleLabel = $('<label for="schedule name">Enter your schedules name</label>');
-        var scheduleInput = $('<input type="text" id="scheduleInputTitle" name="scheduleInputTitle">');
         //remove buttons
         $(createButton).hide();
         $(deleteButton).hide();
         $(viewButton).hide();
-        //add new content 
-        $(".content").append(scheduleInput);
-        $(".content").append(scheduleLabel);
-        //take in an input for the name of the schedule you want to view
-        var scheduleSearch = "";
+
+        $('.scheduleSearch').show();
+        $(".scheduleSearch").submit(function (event) {
+            //prevent default action
+            event.preventDefault()
+            //take in an input for the name of the schedule you want to view
+            var scheduleSearch = $("#scheduleInputTitle").val();
+            
+            //search for the entered schedule name
+            //retrieve the existing data from local storage
+            var scheduleData = JSON.parse(localStorage.getItem("schedules.json")) || [];
+
+            var desiredSchedule;
+
+            // check if the schedule exists
+            for (const schedule of scheduleData) {
+                if (schedule.scheduleTitle === scheduleSearch) {
+                    var desiredSchedule = schedule;
+                }
+            }
+
+            $('.scheduleSearch').hide();
+            $('.content').hide();
+
+            const scheduleContainer = $("#scheduleContainer");
+
+            const titleElement = $("<h1>").text(desiredSchedule.scheduleTitle);
+
+            const activitiesList = $("<ul>").css("list-style-type", "none");
+
+            $.each(desiredSchedule.activities, function (index, activity) {
+                const activityItem = $("<li>").text(`${activity[0]}: ${activity[1]} hours`);
+                activitiesList.append(activityItem);
+            });
+
+            scheduleContainer.append(titleElement, activitiesList);
+
+            $('#scheduleContainer').show();
+        });
     }
 
     //Function for changing to the accountMenu screen of the SPA`
@@ -190,7 +222,7 @@ $(document).ready(function () {
                 //check if login is valid or not
                 if (logInStatus == true) {
                     //hide login form and display schedule form
-                    alert("Log in successful a");
+                    alert("Log in successful");
                     $(".login").hide();
 
                     //change the content of both tags to the text for the schedule screen

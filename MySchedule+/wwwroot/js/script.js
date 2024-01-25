@@ -12,6 +12,12 @@ $(document).ready(function () {
     $('.schedule').hide();
     $('.scheduleSearch').hide();
     $('#scheduleContainer').hide();
+    $('.scheduleDelete').hide();
+
+    //set up any variables I want to be global
+    //make sure the container is only create once and isn't duplicated 
+    var containerExists = false;
+
     function validateSignIn(user, pass) {
 
         //Get all the registered accounts from the json file in local storage
@@ -36,7 +42,43 @@ $(document).ready(function () {
         }
 
     }
-  
+
+    //create a function to delete entries into the schedule storage
+    function scheduleDelete() {
+        //show the schedule delete form
+        $('.scheduleDelete').show();
+        //hide buttons
+        $('#createSchedule').hide();
+        $('#deleteSchedule').hide();
+        $('#accessSchedule').hide(); 
+        //input the name of the schedule you want to delete
+        var deleteInput = $('#scheduleInputTitle').val();
+
+        //when the submit button is pressed
+        $('.scheduleDelete').submit(function () {
+
+            //get the schedules from storage
+            var schedules = JSON.parse(localStorage.getItem("schedules.json")) || [];
+
+            for (var i = 0; i < schedules.length; i++){
+                //check if the provided input is an existing schedule
+                if (deleteInput == schedules[i].scheduleTitle) {
+                    //delete the schedule from storage and alert the user that it has been deleted
+                    localStorage.removeItem(deleteInput);
+                    alert(`Schedule ${deleteInput} has been deleted`);
+                    $('.scheduleDelete').hide();
+                    $('.content').show();
+                }
+                else {
+                    //ask user to provide a valid schedule name
+                    alert(`Please provide a valid schedule name ${deleteInput} does not exist`);
+                }
+
+            }
+           
+        });
+    }
+
     //This will display your current schedule
     function scheduleStore() {
 
@@ -95,7 +137,7 @@ $(document).ready(function () {
 
     function viewSchedule(createButton, deleteButton, viewButton) {
 
-        //remove buttons
+        //hide buttons
         $(createButton).hide();
         $(deleteButton).hide();
         $(viewButton).hide();
@@ -111,39 +153,62 @@ $(document).ready(function () {
             //retrieve the existing data from local storage
             var scheduleData = JSON.parse(localStorage.getItem("schedules.json")) || [];
 
+            //create an exit button to stop viewing your schedule
             var exitButton = $('<button id="exitButton">EXIT</button>');
 
+            //create a variable to store the schedule we want to retrieve
             var desiredSchedule;
 
             // check if the schedule exists
             for (const schedule of scheduleData) {
+                //if the input we provide us equal to the title of a schedule in our storage we retrieve  it
                 if (schedule.scheduleTitle === scheduleSearch) {
                     var desiredSchedule = schedule;
                 }
             }
 
+            //hide content and the search bar
             $('.scheduleSearch').hide();
             $('.content').hide();
 
-            const scheduleContainer = $("#scheduleContainer");
+           
+            if (containerExists == false) {
+                //create a varibale that stores the schedule container
+                const scheduleContainer = $("#scheduleContainer");
 
-            const titleElement = $("<h1>").text(desiredSchedule.scheduleTitle);
+                //create a title element for the container
+                const titleElement = $("<h1>").text(desiredSchedule.scheduleTitle);
 
-            const activitiesList = $("<ul>").css("list-style-type", "none");
+                //create a list to store the activties and the times for each one
+                const activitiesList = $("<ul>").css("list-style-type", "none");
 
-            $.each(desiredSchedule.activities, function (index, activity) {
-                const activityItem = $("<li>").text(`${activity[0]}: ${activity[1]} hours`);
-                activitiesList.append(activityItem);
-            });
+                //for each activity in the schedule store the activity and its time in a variable and append that variable to the activities list
+                $.each(desiredSchedule.activities, function (index, activity) {
+                    const activityItem = $("<li>").text(`${activity[0]}: ${activity[1]} hours`);
+                    activitiesList.append(activityItem);
+                });
 
-            scheduleContainer.append(titleElement, activitiesList, exitButton);
+                //append all these changes to the container
+                scheduleContainer.append(titleElement, activitiesList, exitButton);
 
-
-            exitButton.click(function (event) {
-                $(scheduleContainer).hide();``
-            });
-
+                //set exists to true
+                containerExists = true;
+            }
+            //display the schedule container
             $('#scheduleContainer').show();
+
+            //if the exit button is pressed hide the container
+            exitButton.click(function (event) {
+                $(scheduleContainer).hide();
+                //re-display the buttons and content
+                $('.content').show();
+                $(createButton).show();
+                $(deleteButton).show();
+                $(viewButton).show();
+            });
+
+            
+
         });
     }
 
@@ -152,6 +217,11 @@ $(document).ready(function () {
 
         //hide schedule page
         $('#scheduleContainer').hide();
+        $('.scheduleSearch').hide();
+        //hide buttons
+        $('#createSchedule').hide();
+        $('#deleteSchedule').hide();
+        $('#accessSchedule').hide();
 
         //use querySelector to assign html elements to variables so they can be altered
         var myAccount = document.querySelector("#myAccount");
@@ -196,13 +266,13 @@ $(document).ready(function () {
 
         }
 
-        var signInButton = document.querySelector("#signIn");
-        var registerButton = document.querySelector("#register");
+        signInButton = document.querySelector("#signIn");
+        registerButton = document.querySelector("#register");
         $(signInButton).show();
         $(registerButton).show();
 
         //when the sign in button is pressed the sign in form will be displayed
-        signInButton.click(function (event) {
+        $(signInButton).click(function (event) {
 
             //prevent default action
             event.preventDefault()
@@ -288,7 +358,17 @@ $(document).ready(function () {
 
                     //run the view schedule function
                     viewSchedule("#createSchedule", "#deleteSchedule", "#accessSchedule");
-                })
+                });
+
+                deleteScheduleButton.click(function (event) {
+
+                    //prevent default action
+                    event.preventDefault();
+
+                    //call delete schedule button
+                    scheduleDelete();
+
+                });
 
                 
             });
@@ -296,7 +376,7 @@ $(document).ready(function () {
         });
 
         //when the register button is pressed the register form will appear
-        registerButton.click(function (event) {
+        $(registerButton).click(function (event) {
 
             //prevent default action
             event.preventDefault()
@@ -400,6 +480,13 @@ $(document).ready(function () {
         //hide schedule page
         $('#scheduleContainer').hide();
 
+        $('.scheduleSearch').hide();
+
+        //hide buttons
+        $('#createSchedule').hide();
+        $('#deleteSchedule').hide();
+        $('#accessSchedule').hide();
+
         //show the content back on the page
         $('.content').show();
 
@@ -440,6 +527,12 @@ $(document).ready(function () {
 
         //hide schedule page
         $('#scheduleContainer').hide();
+        $('.scheduleSearch').hide();
+
+        //hide buttons
+        $('#createSchedule').hide();
+        $('#deleteSchedule').hide();
+        $('#accessSchedule').hide();
 
         //show the content back on the page
         $('.content').show();

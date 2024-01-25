@@ -260,6 +260,12 @@ input[type=submit] {
         margin-top: 10px; 
     }
 
+.scheduleDelete {
+    text-align: center;
+}
+#scheduleDelete-submit {
+    margin-bottom: 10px;
+}
 form {
     display: flex;
     flex-direction: column;

@@ -527,19 +527,13 @@ $(document).ready(function () {
     //Function for changing to the supportMenu screen
     function supportMenu() {
 
-        //use querySelector to assign html elements to variables so they can be altered
-        var support = document.querySelector("#support");
+        //change the content of both tags to the text for the schedule screen
+        var contenth1 = $('.content').children('h1');
 
-        var content = document.querySelector(".content");
+        var contentp = $('.content').children('p');
 
-        var contenth1 = content.querySelector("h1");
-
-        var contentp = content.querySelector("p");
-
-        //change the content of both the tags to text for the supportMenu screen
-        contenth1.textContent = "Support";
-
-        contentp.textContent = "This is an application that will allow you to manage your time by adding your daily activities to a schedule. On the account menu you can register an account or sign in. Your schedules will be linked to your account and you can update the schedule and will receive feedback on how healthy your time management is and the site will give suggestions for improvements.";
+        contenth1.text("Support");
+        contentp.text("This is an application that will allow you to manage your time by adding your daily activities to a schedule. On the account menu you can register an account or sign in. Your schedules will be linked to your account and you can update the schedule and will receive feedback on how healthy your time management is and the site will give suggestions for improvements.");
 
         //hide the form
         $('.login').hide();
@@ -575,19 +569,13 @@ $(document).ready(function () {
     //Function for returning to the home screen of the SPA
     function returnHome() {
 
-        //use querySelector to assign html elements to variables so they can be altered
-        var home = document.querySelector("#home");
+        //change the content of both tags to the text for the schedule screen
+        var contenth1 = $('.content').children('h1');
 
-        var content = document.querySelector(".content");
+        var contentp = $('.content').children('p');
 
-        var contenth1 = content.querySelector("h1");
-
-        var contentp = content.querySelector("p");
-
-        //change the content of both html tags to the original text
-        contenth1.textContent = "Myschedule+";
-
-        contentp.textContent = "Welcome to Myschedule+, this is a single paged web application where you can create a schedule and manage your time";
+        contenth1.text("Myschedule+");
+        contentp.text("Welcome to Myschedule+, this is a single paged web application where you can create a schedule and manage your time");
 
         //hide the form
         $('.login').hide();

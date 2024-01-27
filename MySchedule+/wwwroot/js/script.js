@@ -17,6 +17,7 @@ $(document).ready(function () {
     //set up any variables I want to be global
     //make sure the container is only create once and isn't duplicated 
     var containerExists = false;
+    var loggedIn = false;
 
     function validateSignIn(user, pass) {
 
@@ -51,29 +52,36 @@ $(document).ready(function () {
         $('#createSchedule').hide();
         $('#deleteSchedule').hide();
         $('#accessSchedule').hide(); 
-        //input the name of the schedule you want to delete
-        var deleteInput = $('#scheduleInputTitle').val();
-
+        
         //when the submit button is pressed
         $('.scheduleDelete').submit(function () {
 
+            //input the name of the schedule you want to delete
+            var deleteInput = $('#scheduleDeleteTitle').val();
+            //bool to check if schedule has been found
+            var scheduleFound = false;
             //get the schedules from storage
             var schedules = JSON.parse(localStorage.getItem("schedules.json")) || [];
 
             for (var i = 0; i < schedules.length; i++){
+                console.log(schedules[i].scheduleTitle);
                 //check if the provided input is an existing schedule
-                if (deleteInput == schedules[i].scheduleTitle) {
+                if (deleteInput === schedules[i].scheduleTitle) {
                     //delete the schedule from storage and alert the user that it has been deleted
-                    localStorage.removeItem(deleteInput);
+                    schedules.splice(i, 1);
+                    //save new schedule array
+                    localStorage.setItem("schedules.json", JSON.stringify(schedules, null, 2));
                     alert(`Schedule ${deleteInput} has been deleted`);
                     $('.scheduleDelete').hide();
                     $('.content').show();
+                    scheduleFound = true;
+                    break;
                 }
-                else {
-                    //ask user to provide a valid schedule name
-                    alert(`Please provide a valid schedule name ${deleteInput} does not exist`);
-                }
-
+            }
+            //if there is no matching name
+            if (scheduleFound == false) {
+                //ask user to provide a valid schedule name
+                alert(`Please provide a valid schedule name ${deleteInput} does not exist`);
             }
            
         });
@@ -126,13 +134,6 @@ $(document).ready(function () {
             $('.content').show();
         }
 
-    }
-
-    //function to create a schedule
-    function createSchedule() {
-        //display the schedule form
-        $(".schedule").show();
-        scheduleStore();
     }
 
     function viewSchedule(createButton, deleteButton, viewButton) {
@@ -223,234 +224,306 @@ $(document).ready(function () {
         $('#deleteSchedule').hide();
         $('#accessSchedule').hide();
 
-        //use querySelector to assign html elements to variables so they can be altered
-        var myAccount = document.querySelector("#myAccount");
+        if (loggedIn == false) {
+            //use querySelector to assign html elements to variables so they can be altered
+            var myAccount = document.querySelector("#myAccount");
 
-        var content = document.querySelector(".content");
+            var content = document.querySelector(".content");
 
-        var contenth1 = content.querySelector("h1");
+            var contenth1 = content.querySelector("h1");
 
-        var contentp = content.querySelector("p");
+            var contentp = content.querySelector("p");
 
-        //change the content of both tags to the text for the accountMenu screen
-        contenth1.textContent = "Your Account";
+            //change the content of both tags to the text for the accountMenu screen
+            contenth1.textContent = "Your Account";
 
-        contentp.textContent = "If you have an account already you can click the sign in button and sign in with your details. If not you can click the create account button and register an account.";
+            contentp.textContent = "If you have an account already you can click the sign in button and sign in with your details. If not you can click the create account button and register an account.";
 
-        //check if buttons already exist, if not create them
+            //check if buttons already exist, if not create them
 
-        //create a place holder for the button elements
-        var button = $('button');
+            //create a place holder for the button elements
+            var button = $('button');
 
-        //if they have no length that means no buttons have been created/ set up so we can create the buttons
-        if (button.length <= 0) {
-            //create a sign in button
-            var signInButton = $('<button id="signIn"></button>');
+            //if they have no length that means no buttons have been created/ set up so we can create the buttons
+            if (button.length <= 0) {
+                //create a sign in button
+                var signInButton = $('<button id="signIn"></button>');
 
-            //assign text to the button
-            signInButton.text("Sign in");
+                //assign text to the button
+                signInButton.text("Sign in");
 
-            //add the button to the content div
-            $('.content').append(signInButton);
+                //add the button to the content div
+                $('.content').append(signInButton);
 
-            //create a sign in button
-            var registerButton = $('<button id="register"></button>');
+                //create a sign in button
+                var registerButton = $('<button id="register"></button>');
 
-            //assign text to the button
-            registerButton.text("Register");
+                //assign text to the button
+                registerButton.text("Register");
 
-            //add the button to the content div
-            $('.content').append(registerButton);
-
-            
-
-        }
-
-        signInButton = document.querySelector("#signIn");
-        registerButton = document.querySelector("#register");
-        $(signInButton).show();
-        $(registerButton).show();
-
-        //when the sign in button is pressed the sign in form will be displayed
-        $(signInButton).click(function (event) {
-
-            //prevent default action
-            event.preventDefault()
+                //add the button to the content div
+                $('.content').append(registerButton);
 
 
-            $('.login').show();
 
-            $('#signIn').hide();
-            $('#register').hide();
+            }
 
-            $('.content').hide();
+            signInButton = document.querySelector("#signIn");
+            registerButton = document.querySelector("#register");
+            $(signInButton).show();
+            $(registerButton).show();
 
-            //Set up what happens when you submit
-            $(".login").submit(function (event) {
+            //when the sign in button is pressed the sign in form will be displayed
+            $(signInButton).click(function (event) {
+
                 //prevent default action
                 event.preventDefault()
 
-                //disable the submit button to stop multiple entries in one go
-                $("#login-submit").prop("disabled", true);
 
-                //create variables to store field data
+                $('.login').show();
+
+                $('#signIn').hide();
+                $('#register').hide();
+
+                $('.content').hide();
+
+                //Set up what happens when you submit
+                $(".login").submit(function (event) {
+                    //prevent default action
+                    event.preventDefault()
+
+                    //disable the submit button to stop multiple entries in one go
+                    $("#login-submit").prop("disabled", true);
+
+                    //create variables to store field data
+                    var _username;
+                    var _password;
+
+                    //get data from both fields entered
+                    _username = $("#login-username").val();
+                    _password = $("#login-password").val();
+
+                    //run the account login validater
+                    var logInStatus = validateSignIn(_username, _password);
+
+                    //check if login is valid or not
+                    if (logInStatus == true) {
+                        //hide login form and display schedule form
+                        alert("Log in successful");
+                        $(".login").hide();
+                        loggedIn = true;
+
+                        //change the content of both tags to the text for the schedule screen
+                        contenth1.textContent = "Your Schedules";
+
+                        contentp.textContent = "Access, create or delete your schedules here.";
+
+                        //create buttons for schedule
+                        var accessScheduleButton = $('<button id="accessSchedule">Access Schedule</button>');
+                        var createScheduleButton = $('<button id="createSchedule">Create Schedule</button>');
+                        var deleteScheduleButton = $('<button id="deleteSchedule">Delete Schedule</button>');
+
+                        //rewrite the new schedule
+                        $('.content').append(accessScheduleButton, createScheduleButton, deleteScheduleButton);
+                        //display content
+                        $(".content").show();
+
+                    }
+
+                    //if username or password field are left blank tell user to please fill in the fields
+                    else if (_username == "" || _password == "") {
+                        alert("Please fill in both fields.");
+                    }
+                    else {
+                        alert("Incorrect username or password, please enter the correct details");
+                    }
+                    //enable register submition again
+                    $("#login-submit").prop("disabled", false);
+
+                    //check what button has been pressed
+                    createScheduleButton.click(function (event) {
+
+                        //prevent default action
+                        event.preventDefault();
+
+                        //hide the content
+                        $(".content").hide();
+
+                        $('.schedule').show();
+
+                        $('.schedule').submit(function (event) {
+
+                            //prevent default action
+                            event.preventDefault();
+
+                            //display schedule form
+                            scheduleStore();
+
+                        })
+                          
+                    });
+
+                    accessScheduleButton.click(function (event) {
+
+                        //prevent default action
+                        event.preventDefault();
+
+                        //run the view schedule function
+                        viewSchedule("#createSchedule", "#deleteSchedule", "#accessSchedule");
+                    });
+
+                    deleteScheduleButton.click(function (event) {
+
+                        //prevent default action
+                        event.preventDefault();
+
+                        //call delete schedule button
+                        scheduleDelete();
+
+                    });
+
+
+                });
+
+            });
+
+            //when the register button is pressed the register form will appear
+            $(registerButton).click(function (event) {
+
+                //prevent default action
+                event.preventDefault()
+
+                $('.register').show();
+
+                //remove the buttons from the screen
+                signInButton.remove();
+                registerButton.remove();
+
+                //hide the content from the screen
+                $('.content').hide();
+
+                //create username and password variables
                 var _username;
                 var _password;
 
-                //get data from both fields entered
-                _username = $("#login-username").val();
-                _password = $("#login-password").val();
-
-                //run the account login validater
-                var logInStatus = validateSignIn(_username, _password);
-
-                //check if login is valid or not
-                if (logInStatus == true) {
-                    //hide login form and display schedule form
-                    alert("Log in successful");
-                    $(".login").hide();
-
-                    //change the content of both tags to the text for the schedule screen
-                    contenth1.textContent = "Your Schedules";
-
-                    contentp.textContent = "Access, create or delete your schedules here.";
-
-                    //create buttons for schedule
-                    var accessScheduleButton = $('<button id="accessSchedule">Access Schedule</button>');
-                    var createScheduleButton = $('<button id="createSchedule">Create Schedule</button>');
-                    var deleteScheduleButton = $('<button id="deleteSchedule">Delete Schedule</button>');
-
-                    //rewrite the new schedule
-                    $('.content').append(accessScheduleButton, createScheduleButton, deleteScheduleButton);
-                    //display content
-                    $(".content").show();
-
-                }
-
-                //if username or password field are left blank tell user to please fill in the fields
-                else if (_username == "" || _password == "") {
-                    alert("Please fill in both fields.");
-                }
-                else {
-                    alert("Incorrect username or password, please enter the correct details");
-                }
-                //enable register submition again
-                $("#login-submit").prop("disabled", false);
-
-                //selection statements to check what button has been pressed
-                createScheduleButton.click(function (event) {
-
-                    //prevent default action
+                //if the submit button is pressed run the following function
+                $(".register").submit(function (event) {
+                    //prevent default form submission
                     event.preventDefault();
 
-                    //hide the content
-                    $(".content").hide();
+                    //disable the submit button to stop multiple entries in one go
+                    $("#register-submit").prop("disabled", true);
 
-                    //display schedule form
-                    createSchedule();
+                    //get the username and password from the input field
+                    _username = $("#register-username").val();
+                    _password = $("#register-password").val();
 
+                    //retrieve the existing data from local storage
+                    var accountData = JSON.parse(localStorage.getItem("accounts.json")) || [];
+
+                    // check if the username already exists
+                    var usernameExists = accountData.some(function (account) {
+                        return account.username.trim().toLowerCase() === _username.toLowerCase();
+                    });
+
+                    //if the username is not already taken
+                    if (!usernameExists && _username != "" && _password != "") {
+
+                        //let the user know their account has been created
+                        alert("Account created");
+                        //add the data from the username and password field into an object
+                        var accountObject = {
+                            username: _username,
+                            password: _password
+                        };
+
+                        //push the object into the array of data
+                        accountData.push(accountObject);
+
+                        //store the updated data into the local storage in JSON format
+                        localStorage.setItem('accounts.json', JSON.stringify(accountData, null, 2));
+
+                        //hide the register form
+                        $('.register').hide();
+                        //show the content again
+                        $('.content').show();
+                    }
+                    //if username or password field are left blank tell user to please fill in the fields
+                    else if (_username == "" || _password == "") {
+                        alert("Please fill in both fields.");
+                    }
+                    //if username already exists tell user to use a different username and password
+                    else {
+                        alert("Username already exists please choose a different one.");
+                    }
+
+                    //enable register submition again
+                    $("#register-submit").prop("disabled", false);
                 });
-
-                accessScheduleButton.click(function (event) {
-
-                    //prevent default action
-                    event.preventDefault();
-
-                    //run the view schedule function
-                    viewSchedule("#createSchedule", "#deleteSchedule", "#accessSchedule");
-                });
-
-                deleteScheduleButton.click(function (event) {
-
-                    //prevent default action
-                    event.preventDefault();
-
-                    //call delete schedule button
-                    scheduleDelete();
-
-                });
-
-                
             });
 
-        });
+        }
+        //if already logged in
+        else {
 
-        //when the register button is pressed the register form will appear
-        $(registerButton).click(function (event) {
+            //change the content of both tags to the text for the schedule screen
+            var contenth1 = $('.content').children('h1');
 
-            //prevent default action
-            event.preventDefault()
+            var contentp = $('.content').children('p');
 
-            $('.register').show();
+            contenth1.text("Your Schedules");
+            contentp.text("Access, create or delete your schedules here.");
 
-            //remove the buttons from the screen
-            signInButton.remove();
-            registerButton.remove();
+            $('#accessSchedule').show();
+            $('#createSchedule').show();
+            $('#deleteSchedule').show();
+            //hide schedule page
+            $('#scheduleContainer').hide();
+            $('.scheduleSearch').hide();
 
-            //hide the content from the screen
-            $('.content').hide();
+            //check what button has been pressed
+            $('#createSchedule').click(function (event) {
 
-            //create username and password variables
-            var _username;
-            var _password;
-
-            //if the submit button is pressed run the following function
-            $(".register").submit(function (event) {
-                //prevent default form submission
+                //prevent default action
                 event.preventDefault();
 
-                //disable the submit button to stop multiple entries in one go
-                $("#register-submit").prop("disabled", true);
+                //hide the content
+                $(".content").hide();
 
-                //get the username and password from the input field
-                _username = $("#register-username").val();
-                _password = $("#register-password").val();
+                $('.schedule').show();
 
-                //retrieve the existing data from local storage
-                var accountData = JSON.parse(localStorage.getItem("accounts.json")) || [];
+                $('.schedule').submit(function (event) {
 
-                // check if the username already exists
-                var usernameExists = accountData.some(function (account) {
-                    return account.username.trim().toLowerCase() === _username.toLowerCase();
-                });
+                    //prevent default action
+                    event.preventDefault();
 
-                //if the username is not already taken
-                if (!usernameExists && _username != "" && _password != "") {
+                    //display schedule form
+                    scheduleStore();
 
-                    //let the user know their account has been created
-                    alert("Account created");
-                    //add the data from the username and password field into an object
-                    var accountObject = {
-                        username: _username,
-                        password: _password
-                    };
+                })
 
-                    //push the object into the array of data
-                    accountData.push(accountObject);
-
-                    //store the updated data into the local storage in JSON format
-                    localStorage.setItem('accounts.json', JSON.stringify(accountData, null, 2));
-
-                    //hide the register form
-                    $('.register').hide();
-                    //show the content again
-                    $('.content').show();
-                }
-                //if username or password field are left blank tell user to please fill in the fields
-                else if (_username == "" || _password == "") {
-                    alert("Please fill in both fields.");
-                }
-                //if username already exists tell user to use a different username and password
-                else {
-                    alert("Username already exists please choose a different one.");
-                }
-
-                //enable register submition again
-                $("#register-submit").prop("disabled", false);
             });
-        });
-    }
 
+            $('#accessSchedule').click(function (event) {
+
+                //prevent default action
+                event.preventDefault();
+
+                //run the view schedule function
+                viewSchedule("#createSchedule", "#deleteSchedule", "#accessSchedule");
+            });
+
+            $('#deleteSchedule').click(function (event) {
+
+                //prevent default action
+                event.preventDefault();
+
+                //call delete schedule button
+                scheduleDelete();
+
+            });
+        }
+    }
     //Function for changing to the supportMenu screen
     function supportMenu() {
 

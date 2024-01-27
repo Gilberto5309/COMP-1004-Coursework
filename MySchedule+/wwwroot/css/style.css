@@ -111,6 +111,13 @@ body h1 {
         justify-content: center;
     }
 
+    .content .scheduleDelete {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+
 
 button {
     width: 200px;
@@ -260,12 +267,7 @@ input[type=submit] {
         margin-top: 10px; 
     }
 
-.scheduleDelete {
-    text-align: center;
-}
-#scheduleDelete-submit {
-    margin-bottom: 10px;
-}
+
 form {
     display: flex;
     flex-direction: column;

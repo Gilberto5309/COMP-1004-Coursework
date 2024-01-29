@@ -19,7 +19,7 @@ html {
 }
 
 body {
-  margin-bottom: 60px;
+  margin-bottom: 5%;
   overflow-x: hidden;
   margin: 0;
 }
@@ -27,7 +27,7 @@ body {
 .navbar {
     width: 100%;
     margin: auto;
-    padding: 35px 0;
+    padding: 1% 0;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -57,7 +57,7 @@ body {
 
         .navbar ul li::after {
             content: '';
-            height: 3px;
+            height: 20%;
             width: 0;
             background: rgb(174, 113, 32);
             position: absolute;
@@ -76,7 +76,7 @@ body h1 {
 
 .banner {
     width: 100%;
-    height: 120vh;
+    height: 120%;
     background-color: palegoldenrod;
     padding-bottom: 0px;
 }
@@ -94,11 +94,11 @@ body h1 {
 
     .content h1 {
         font-size: 70px;
-        margin-top: 80px;
+        margin-top: 10%;
     }
 
     .content p {
-        margin: 20px auto;
+        margin: 1% auto;
         font-weight: 100;
         line-height: 25px;
         width: 75%;
@@ -111,13 +111,20 @@ body h1 {
         justify-content: center;
     }
 
+    .content .scheduleDelete {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+
 
 button {
-    width: 200px;
+    width: 10%;
     padding: 15px 0;
     text-align: center;
     margin: 20px 10px;
-    border-radius: 25px;
+    border-radius: 5px;
     font-weight: bold;
     border: 2px solid rgb(102, 41, 41);
     background: rgb(201, 143, 66);
@@ -145,7 +152,7 @@ button:hover span {
 
 input[type=text]{
     width: 40%;
-    padding: 12px 20px;
+    padding: 1.5% 5%;
     margin: 8px 0;
     background-color: rgb(201, 143, 66);
     color: white;
@@ -156,7 +163,7 @@ input[type=text]{
 
 input[type=number] {
     width: 5%;
-    padding: 12px 20px;
+    padding: 1% 20px;
     margin: 8px 0;
     background-color: rgb(201, 143, 66);
     color: white;
@@ -167,7 +174,7 @@ input[type=number] {
 
 input[type=submit] {
     width: 20%;
-    padding: 12px 20px;
+    padding: 1.5% 5%;
     margin: 8px 0;
     background-color: rgb(201, 143, 66);
     color: white;
@@ -204,7 +211,7 @@ input[type=submit] {
 }
 
 .schedule {
-    padding: 10px;
+    padding: 12px;
     align-items: center;
     justify-content: center;
     margin-top: 2%;
@@ -255,17 +262,12 @@ input[type=submit] {
         display: flex;
         align-items: center; 
         justify-content: center; 
-        width: 150px;
-        height: 50px; 
+        width: 20%;
+        height: 30%; 
         margin-top: 10px; 
     }
 
-.scheduleDelete {
-    text-align: center;
-}
-#scheduleDelete-submit {
-    margin-bottom: 10px;
-}
+
 form {
     display: flex;
     flex-direction: column;

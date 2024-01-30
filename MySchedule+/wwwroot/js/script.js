@@ -18,12 +18,15 @@ $(document).ready(function () {
     //make sure the container is only create once and isn't duplicated 
     var containerExists = false;
     var loggedIn = false;
+    var currentAccount;
 
     function validateSignIn(user, pass) {
 
         //Get all the registered accounts from the json file in local storage
         var accounts = JSON.parse(localStorage.getItem("accounts.json")) || [];
 
+        //status on account
+        var found = false;
         //traverse the array of accounts and find a matching username and password
         for (var i = 0; i < accounts.length; i++){
             //check for username
@@ -31,21 +34,23 @@ $(document).ready(function () {
                 //check that the password is also correct
                 if (pass === accounts[i].password) {
                     //return true if both fields are correct
-                    return true;
+                    found = true
+                    break;
                 } else {
                     //if password is incorrect return false
-                    return false;
+                    found = false
                 }
             } else {
                 //if username is wrong return false
-                return false;
+                found = false;
             }
         }
+        return found;
 
     }
 
     //create a function to delete entries into the schedule storage
-    function scheduleDelete() {
+    function scheduleDelete(currentAccount) {
         //show the schedule delete form
         $('.scheduleDelete').show();
         //hide buttons
@@ -64,14 +69,13 @@ $(document).ready(function () {
             var schedules = JSON.parse(localStorage.getItem("schedules.json")) || [];
 
             for (var i = 0; i < schedules.length; i++){
-                console.log(schedules[i].scheduleTitle);
                 //check if the provided input is an existing schedule
-                if (deleteInput === schedules[i].scheduleTitle) {
+                if (deleteInput === schedules[i].scheduleTitle && currentAccount === schedules[i].account) {
                     //delete the schedule from storage and alert the user that it has been deleted
                     schedules.splice(i, 1);
                     //save new schedule array
                     localStorage.setItem("schedules.json", JSON.stringify(schedules, null, 2));
-                    alert(`Schedule ${deleteInput} has been deleted`);
+                    alert(`${deleteInput} has been deleted`);
                     $('.scheduleDelete').hide();
                     $('.content').show();
                     scheduleFound = true;
@@ -81,14 +85,14 @@ $(document).ready(function () {
             //if there is no matching name
             if (scheduleFound == false) {
                 //ask user to provide a valid schedule name
-                alert(`Please provide a valid schedule name ${deleteInput} does not exist`);
+                alert(`${deleteInput} does not exist or is linked to a seperate account`);
             }
            
         });
     }
 
     //This will display your current schedule
-    function scheduleStore() {
+    function scheduleStore(account) {
 
         //store all the values from the fields
         var scheduleTitle = $("#scheduleTitle").val();
@@ -122,7 +126,7 @@ $(document).ready(function () {
         //if it is unique add data to the schedules array with a title and add it to local storage
         else {
 
-            schedules.push({ scheduleTitle, activities });
+            schedules.push({ account, scheduleTitle, activities });
 
             localStorage.setItem("schedules.json", JSON.stringify(schedules, null, 2));
 
@@ -136,7 +140,7 @@ $(document).ready(function () {
 
     }
 
-    function viewSchedule(createButton, deleteButton, viewButton) {
+    function viewSchedule(createButton, deleteButton, viewButton, currentAccount) {
 
         //hide buttons
         $(createButton).hide();
@@ -147,68 +151,87 @@ $(document).ready(function () {
         $(".scheduleSearch").submit(function (event) {
             //prevent default action
             event.preventDefault()
+
+
             //take in an input for the name of the schedule you want to view
             var scheduleSearch = $("#scheduleInputTitle").val();
-            
+
+            //check if schedule linked to account was found or if it exists
+            var found = false;
+
             //search for the entered schedule name
             //retrieve the existing data from local storage
             var scheduleData = JSON.parse(localStorage.getItem("schedules.json")) || [];
 
-            //create an exit button to stop viewing your schedule
-            var exitButton = $('<button id="exitButton">EXIT</button>');
+            for (var i = 0; i < scheduleData.length; i++) {
+           
+                //check if the provided input is an existing schedule
+                if (currentAccount === scheduleData[i].account && found == false) {
 
-            //create a variable to store the schedule we want to retrieve
-            var desiredSchedule;
+                    //create an exit button to stop viewing your schedule
+                    var exitButton = $('<button id="exitButton">EXIT</button>');
 
-            // check if the schedule exists
-            for (const schedule of scheduleData) {
-                //if the input we provide us equal to the title of a schedule in our storage we retrieve  it
-                if (schedule.scheduleTitle === scheduleSearch) {
-                    var desiredSchedule = schedule;
+                    //create a variable to store the schedule we want to retrieve
+                    var desiredSchedule;
+
+                    // check if the schedule exists
+                    for (const schedule of scheduleData) {
+                        //if the input we provide us equal to the title of a schedule in our storage we retrieve  it
+                        if (schedule.scheduleTitle === scheduleSearch) {
+                            var desiredSchedule = schedule;
+                            found = true;
+
+                        }
+                    }
+
+                    //hide content and the search bar
+                    $('.scheduleSearch').hide();
+                    $('.content').hide();
+
+
+                    if (containerExists == false) {
+                        //create a varibale that stores the schedule container
+                        const scheduleContainer = $("#scheduleContainer");
+
+                        //create a title element for the container
+                        const titleElement = $("<h1>").text(desiredSchedule.scheduleTitle);
+
+                        //create a list to store the activties and the times for each one
+                        const activitiesList = $("<ul>").css("list-style-type", "none");
+
+                        //for each activity in the schedule store the activity and its time in a variable and append that variable to the activities list
+                        $.each(desiredSchedule.activities, function (index, activity) {
+                            const activityItem = $("<li>").text(`${activity[0]}: ${activity[1]} hours`);
+                            activitiesList.append(activityItem);
+                        });
+
+                        //append all these changes to the container
+                        scheduleContainer.append(titleElement, activitiesList, exitButton);
+
+                        //set exists to true
+                        containerExists = true;
+                    }
+                    //display the schedule container
+                    $('#scheduleContainer').show();
+
+                    //if the exit button is pressed hide the container
+                    exitButton.click(function (event) {
+                        $(scheduleContainer).hide();
+                        //re-display the buttons and content
+                        $('.content').show();
+                        $(createButton).show();
+                        $(deleteButton).show();
+                        $(viewButton).show();
+                    });
+
                 }
             }
 
-            //hide content and the search bar
-            $('.scheduleSearch').hide();
-            $('.content').hide();
-
-           
-            if (containerExists == false) {
-                //create a varibale that stores the schedule container
-                const scheduleContainer = $("#scheduleContainer");
-
-                //create a title element for the container
-                const titleElement = $("<h1>").text(desiredSchedule.scheduleTitle);
-
-                //create a list to store the activties and the times for each one
-                const activitiesList = $("<ul>").css("list-style-type", "none");
-
-                //for each activity in the schedule store the activity and its time in a variable and append that variable to the activities list
-                $.each(desiredSchedule.activities, function (index, activity) {
-                    const activityItem = $("<li>").text(`${activity[0]}: ${activity[1]} hours`);
-                    activitiesList.append(activityItem);
-                });
-
-                //append all these changes to the container
-                scheduleContainer.append(titleElement, activitiesList, exitButton);
-
-                //set exists to true
-                containerExists = true;
+            console.log(found);
+            //if found is false
+            if (found == false) {
+                alert("Schedule either does not exist or is linked to another account");
             }
-            //display the schedule container
-            $('#scheduleContainer').show();
-
-            //if the exit button is pressed hide the container
-            exitButton.click(function (event) {
-                $(scheduleContainer).hide();
-                //re-display the buttons and content
-                $('.content').show();
-                $(createButton).show();
-                $(deleteButton).show();
-                $(viewButton).show();
-            });
-
-            
 
         });
     }
@@ -219,25 +242,24 @@ $(document).ready(function () {
         //hide schedule page
         $('#scheduleContainer').hide();
         $('.scheduleSearch').hide();
+        $('.scheduleDelete').hide();
+
         //hide buttons
         $('#createSchedule').hide();
         $('#deleteSchedule').hide();
         $('#accessSchedule').hide();
 
         if (loggedIn == false) {
-            //use querySelector to assign html elements to variables so they can be altered
-            var myAccount = document.querySelector("#myAccount");
 
-            var content = document.querySelector(".content");
+            //change the content of both tags
+            var contenth1 = $('.content').children('h1');
 
-            var contenth1 = content.querySelector("h1");
-
-            var contentp = content.querySelector("p");
+            var contentp = $('.content').children('p');
 
             //change the content of both tags to the text for the accountMenu screen
-            contenth1.textContent = "Your Account";
+            contenth1.text("Your Account");
 
-            contentp.textContent = "If you have an account already you can click the sign in button and sign in with your details. If not you can click the create account button and register an account.";
+            contentp.text("If you have an account already you can click the sign in button and sign in with your details. If not you can click the create account button and register an account.");
 
             //check if buttons already exist, if not create them
 
@@ -303,6 +325,9 @@ $(document).ready(function () {
                     _username = $("#login-username").val();
                     _password = $("#login-password").val();
 
+                    //encrypt the password
+                    
+
                     //run the account login validater
                     var logInStatus = validateSignIn(_username, _password);
 
@@ -312,6 +337,7 @@ $(document).ready(function () {
                         alert("Log in successful");
                         $(".login").hide();
                         loggedIn = true;
+                        currentAccount = _username;
 
                         //change the content of both tags to the text for the schedule screen
                         contenth1.textContent = "Your Schedules";
@@ -357,7 +383,7 @@ $(document).ready(function () {
                             event.preventDefault();
 
                             //display schedule form
-                            scheduleStore();
+                            scheduleStore(currentAccount);
 
                         })
                           
@@ -369,7 +395,7 @@ $(document).ready(function () {
                         event.preventDefault();
 
                         //run the view schedule function
-                        viewSchedule("#createSchedule", "#deleteSchedule", "#accessSchedule");
+                        viewSchedule("#createSchedule", "#deleteSchedule", "#accessSchedule", currentAccount);
                     });
 
                     deleteScheduleButton.click(function (event) {
@@ -378,7 +404,7 @@ $(document).ready(function () {
                         event.preventDefault();
 
                         //call delete schedule button
-                        scheduleDelete();
+                        scheduleDelete(currentAccount);
 
                     });
 
@@ -477,9 +503,11 @@ $(document).ready(function () {
             $('#accessSchedule').show();
             $('#createSchedule').show();
             $('#deleteSchedule').show();
+
             //hide schedule page
             $('#scheduleContainer').hide();
             $('.scheduleSearch').hide();
+            $('.scheduleDelete').hide();
 
             //check what button has been pressed
             $('#createSchedule').click(function (event) {
@@ -498,7 +526,7 @@ $(document).ready(function () {
                     event.preventDefault();
 
                     //display schedule form
-                    scheduleStore();
+                    scheduleStore(currentAccount);
 
                 })
 
@@ -510,7 +538,7 @@ $(document).ready(function () {
                 event.preventDefault();
 
                 //run the view schedule function
-                viewSchedule("#createSchedule", "#deleteSchedule", "#accessSchedule");
+                viewSchedule("#createSchedule", "#deleteSchedule", "#accessSchedule", currentAccount);
             });
 
             $('#deleteSchedule').click(function (event) {
@@ -519,7 +547,7 @@ $(document).ready(function () {
                 event.preventDefault();
 
                 //call delete schedule button
-                scheduleDelete();
+                scheduleDelete(currentAccount);
 
             });
         }
@@ -548,6 +576,7 @@ $(document).ready(function () {
         $('#scheduleContainer').hide();
 
         $('.scheduleSearch').hide();
+        $('.scheduleDelete').hide();
 
         //hide buttons
         $('#createSchedule').hide();
@@ -569,7 +598,7 @@ $(document).ready(function () {
     //Function for returning to the home screen of the SPA
     function returnHome() {
 
-        //change the content of both tags to the text for the schedule screen
+        //change the content of both tags 
         var contenth1 = $('.content').children('h1');
 
         var contentp = $('.content').children('p');

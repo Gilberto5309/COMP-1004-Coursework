@@ -67,8 +67,6 @@ C:\Comp 1004\COMP-1004\MySchedule+\obj\Debug\net7.0\Myschedule+.AssemblyInfoInpu
 C:\Comp 1004\COMP-1004\MySchedule+\obj\Debug\net7.0\Myschedule+.AssemblyInfo.cs
 C:\Comp 1004\COMP-1004\MySchedule+\obj\Debug\net7.0\Myschedule+.csproj.CoreCompileInputs.cache
 C:\Comp 1004\COMP-1004\MySchedule+\obj\Debug\net7.0\Myschedule+.MvcApplicationPartsAssemblyInfo.cache
-C:\Comp 1004\COMP-1004\MySchedule+\obj\Debug\net7.0\Myschedule+.RazorAssemblyInfo.cache
-C:\Comp 1004\COMP-1004\MySchedule+\obj\Debug\net7.0\Myschedule+.RazorAssemblyInfo.cs
 C:\Comp 1004\COMP-1004\MySchedule+\obj\Debug\net7.0\staticwebassets\msbuild.Myschedule+.Microsoft.AspNetCore.StaticWebAssets.props
 C:\Comp 1004\COMP-1004\MySchedule+\obj\Debug\net7.0\staticwebassets\msbuild.build.Myschedule+.props
 C:\Comp 1004\COMP-1004\MySchedule+\obj\Debug\net7.0\staticwebassets\msbuild.buildMultiTargeting.Myschedule+.props
@@ -76,9 +74,7 @@ C:\Comp 1004\COMP-1004\MySchedule+\obj\Debug\net7.0\staticwebassets\msbuild.buil
 C:\Comp 1004\COMP-1004\MySchedule+\obj\Debug\net7.0\staticwebassets.pack.json
 C:\Comp 1004\COMP-1004\MySchedule+\obj\Debug\net7.0\staticwebassets.build.json
 C:\Comp 1004\COMP-1004\MySchedule+\obj\Debug\net7.0\staticwebassets.development.json
-C:\Comp 1004\COMP-1004\MySchedule+\obj\Debug\net7.0\scopedcss\Pages\Shared\_Layout.cshtml.rz.scp.css
 C:\Comp 1004\COMP-1004\MySchedule+\obj\Debug\net7.0\scopedcss\bundle\Myschedule+.styles.css
-C:\Comp 1004\COMP-1004\MySchedule+\obj\Debug\net7.0\scopedcss\projectbundle\Myschedule+.bundle.scp.css
 C:\Comp 1004\COMP-1004\MySchedule+\obj\Debug\net7.0\Myschedule+.dll
 C:\Comp 1004\COMP-1004\MySchedule+\obj\Debug\net7.0\refint\Myschedule+.dll
 C:\Comp 1004\COMP-1004\MySchedule+\obj\Debug\net7.0\Myschedule+.pdb
@@ -87,3 +83,6 @@ C:\Comp 1004\COMP-1004\MySchedule+\obj\Debug\net7.0\ref\Myschedule+.dll
 C:\Users\jjc19\OneDrive\Documents\GitHub\COMP-1004-Coursework\MySchedule+\bin\Debug\net7.0\package-lock.json
 C:\Users\jjc19\OneDrive\Documents\GitHub\COMP-1004-Coursework\MySchedule+\bin\Debug\net7.0\package.json
 C:\Users\jjc19\OneDrive\Documents\GitHub\COMP-1004-Coursework\MySchedule+\bin\Debug\net7.0\wwwroot\js\account.json
+C:\Comp 1004\COMP-1004\MySchedule+\bin\Debug\net7.0\wwwroot\js\account.json
+C:\Comp 1004\COMP-1004\MySchedule+\bin\Debug\net7.0\package-lock.json
+C:\Comp 1004\COMP-1004\MySchedule+\bin\Debug\net7.0\package.json

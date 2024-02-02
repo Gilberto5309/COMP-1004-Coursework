@@ -54,6 +54,7 @@ $(document).ready(function () {
     function scheduleDelete(currentAccount) {
         //show the schedule delete form
         $('.scheduleDelete').show();
+        $('.showSchedules').show();
         //hide buttons
         $('#createSchedule').hide();
         $('#deleteSchedule').hide();
@@ -132,11 +133,6 @@ $(document).ready(function () {
             localStorage.setItem("schedules.json", JSON.stringify(schedules, null, 2));
 
             alert("Schedules successfully added");
-
-            //hide the register form
-            $('.schedule').hide();
-            //show the content again
-            $('.content').show();
         }
 
         return scheduleTitle;
@@ -250,6 +246,7 @@ $(document).ready(function () {
         $('#scheduleContainer').hide();
         $('.scheduleSearch').hide();
         $('.scheduleDelete').hide();
+        $('.showSchedules').hide();
 
         //hide buttons
         $('#createSchedule').hide();
@@ -408,6 +405,11 @@ $(document).ready(function () {
                             //enable the submit button to stop multiple entries in one go
                             $("#schedule-submit").prop("disabled", false);
 
+                            //hide the register form
+                            $('.schedule').hide();
+                            //show the content again
+                            $('.content').show();
+
                         })
                           
                     });
@@ -561,6 +563,11 @@ $(document).ready(function () {
                     //enable the submit button to stop multiple entries in one go
                     $("#schedule-submit").prop("disabled", false);
 
+                    //hide the register form
+                    $('.schedule').hide();
+                    //show the content again
+                    $('.content').show();
+
                 })
 
             });
@@ -610,6 +617,7 @@ $(document).ready(function () {
 
         $('.scheduleSearch').hide();
         $('.scheduleDelete').hide();
+        $('.showSchedules').hide();
 
         //hide buttons
         $('#createSchedule').hide();
@@ -651,6 +659,7 @@ $(document).ready(function () {
         //hide schedule page
         $('#scheduleContainer').hide();
         $('.scheduleSearch').hide();
+        $('.showSchedules').hide();
 
         //hide buttons
         $('#createSchedule').hide();

@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Comp 1004\\COMP-1004\\MySchedule+\\Myschedule+.csproj": {}
+    "C:\\Users\\jjc19\\OneDrive\\Documents\\GitHub\\COMP-1004-Coursework\\MySchedule+\\Myschedule+.csproj": {}
   },
   "projects": {
-    "C:\\Comp 1004\\COMP-1004\\MySchedule+\\Myschedule+.csproj": {
+    "C:\\Users\\jjc19\\OneDrive\\Documents\\GitHub\\COMP-1004-Coursework\\MySchedule+\\Myschedule+.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Comp 1004\\COMP-1004\\MySchedule+\\Myschedule+.csproj",
+        "projectUniqueName": "C:\\Users\\jjc19\\OneDrive\\Documents\\GitHub\\COMP-1004-Coursework\\MySchedule+\\Myschedule+.csproj",
         "projectName": "Myschedule+",
-        "projectPath": "C:\\Comp 1004\\COMP-1004\\MySchedule+\\Myschedule+.csproj",
+        "projectPath": "C:\\Users\\jjc19\\OneDrive\\Documents\\GitHub\\COMP-1004-Coursework\\MySchedule+\\Myschedule+.csproj",
         "packagesPath": "C:\\Users\\jjc19\\.nuget\\packages\\",
-        "outputPath": "C:\\Comp 1004\\COMP-1004\\MySchedule+\\obj\\",
+        "outputPath": "C:\\Users\\jjc19\\OneDrive\\Documents\\GitHub\\COMP-1004-Coursework\\MySchedule+\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\jjc19\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -58,7 +58,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.403\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.401\\RuntimeIdentifierGraph.json"
         }
       }
     }

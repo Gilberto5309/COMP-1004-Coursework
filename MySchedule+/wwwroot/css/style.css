@@ -119,6 +119,13 @@ body h1 {
         justify-content: center;
     }
 
+    .content .showSchedules {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        margin-top: 1%;
+    }
 
 button {
     width: 10%;
@@ -127,6 +134,7 @@ button {
     margin: 20px 10px;
     border-radius: 5px;
     font-weight: bold;
+    font-size: 60%;
     border: 2px solid rgb(102, 41, 41);
     background: rgb(201, 143, 66);
     color: white;
@@ -176,7 +184,7 @@ input[type=number] {
 input[type=submit] {
     width: 20%;
     padding: 1.5% 5%;
-    margin: 8px 0;
+    font-size: 60%;
     background-color: rgb(201, 143, 66);
     color: white;
     border-radius: 8px;
@@ -237,7 +245,7 @@ input[type=submit] {
     border: 3px solid rgb(102, 41, 41);
     color: white;
     text-align: center;
-    font-size: 80px;
+    font-size: 50px;
     border-radius: 20px;
     display: flex;
     flex-direction: column;

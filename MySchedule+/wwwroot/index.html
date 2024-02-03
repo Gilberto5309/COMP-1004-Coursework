@@ -30,11 +30,14 @@
             <h1>Myschedule+</h1>
             <p>Welcome to Myschedule+, this is a single paged web application where you can create a schedule and manage your time</p>
             <form class="scheduleSearch">
-                <input type="text" id="scheduleInputTitle" name="scheduleInputTitle">
+                <input type="text" id="scheduleInputTitle" autocomplete="off" name="scheduleInputTitle">
                 <input type="submit" id="scheduleSearch-submit" value="Search for schedule">
             </form>
+            <div class="showSchedules">
+
+            </div>
             <form class="scheduleDelete">
-                <input type="text" id="scheduleDeleteTitle" name="scheduleDeleteTitle">
+                <input type="text" id="scheduleDeleteTitle" autocomplete="off" name="scheduleDeleteTitle">
                 <input type="submit" id="scheduleDelete-submit" value="Delete schedule">
             </form>
         </div>
@@ -45,18 +48,18 @@
         <!--Create a login form that will be hidden until needed-->
         <form class="login">
             <label for="login-username">Username: </label><br>
-            <input type="text" id="login-username" name="username"><br>
+            <input type="text" id="login-username" autocomplete="off" name="username"><br>
             <label for="login-password">Password: </label><br>
-            <input type="text" id="login-password" name="password"><br>
+            <input type="text" id="login-password" autocomplete="off" name="password"><br>
             <input type="submit" id="login-submit" value="Log in">
         </form>
 
         <!--Create a register form that will be hidden until needed-->
         <form class="register">
             <label for="register-username">Username: </label><br>
-            <input type="text" id="register-username" name="username"><br>
+            <input type="text" id="register-username" autocomplete="off" name="username"><br>
             <label for="register-password">Password: </label><br>
-            <input type="text" id="register-password" name="password"><br>
+            <input type="text" id="register-password" autocomplete="off" name="password"><br>
             <input type="submit" id="register-submit" value="Register">
         </form>
 
@@ -65,18 +68,18 @@
             <label for="your schedule">Your Schedule</label>
             <label for="info">Please enter the activity you wish to add and the time you indend to spend on it in hours sperated by a comma</label><br>
             <label for="scheduleTitle">Schedule Title</label>
-            <input type="text" id="scheduleTitle" name="scheduleTitle">
+            <input type="text" id="scheduleTitle" autocomplete="off" name="scheduleTitle">
             <label for="Activity1">Activity1</label>
             <label for="Activity1Name">Activity name</label>
-            <input type="text" id="activity1" name="activity1">
+            <input type="text" id="activity1" autocomplete="off" name="activity1">
             <input type="number" id="quantity" name="quantity">
             <label for="Activity2">Activity2</label>
             <label for="Activity2Name">Activity name</label>
-            <input type="text" id="activity2" name="activity2">
+            <input type="text" id="activity2" autocomplete="off" name="activity2">
             <input type="number" id="quantity2" name="quantity2">
             <label for="Activity3">Activity3</label>
             <label for="Activity3Name">Activity name</label>
-            <input type="text" id="activity3" name="activity3">
+            <input type="text" id="activity3" autocomplete="off" name="activity3">
             <input type="number" id="quantity3" name="quantity3">
             <input type="submit" id="schedule-submit" value="Submit">
         </form>

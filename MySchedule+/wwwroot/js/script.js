@@ -13,6 +13,7 @@ $(document).ready(function () {
     $('.scheduleSearch').hide();
     $('#scheduleContainer').hide();
     $('.scheduleDelete').hide();
+    $('.showSchedules').hide();
 
     //set up any variables I want to be global
     //make sure the container is only create once and isn't duplicated 
@@ -53,6 +54,7 @@ $(document).ready(function () {
     function scheduleDelete(currentAccount) {
         //show the schedule delete form
         $('.scheduleDelete').show();
+        $('.showSchedules').show();
         //hide buttons
         $('#createSchedule').hide();
         $('#deleteSchedule').hide();
@@ -131,12 +133,9 @@ $(document).ready(function () {
             localStorage.setItem("schedules.json", JSON.stringify(schedules, null, 2));
 
             alert("Schedules successfully added");
-
-            //hide the register form
-            $('.schedule').hide();
-            //show the content again
-            $('.content').show();
         }
+
+        return scheduleTitle;
 
     }
 
@@ -148,6 +147,11 @@ $(document).ready(function () {
         $(viewButton).hide();
 
         $('.scheduleSearch').show();
+        $('.showSchedules').show();
+
+        //retrieve the existing data from local storage
+        var scheduleData = JSON.parse(localStorage.getItem("schedules.json")) || [];
+
         $(".scheduleSearch").submit(function (event) {
             //prevent default action
             event.preventDefault()
@@ -160,11 +164,9 @@ $(document).ready(function () {
             var found = false;
 
             //search for the entered schedule name
-            //retrieve the existing data from local storage
-            var scheduleData = JSON.parse(localStorage.getItem("schedules.json")) || [];
 
             for (var i = 0; i < scheduleData.length; i++) {
-           
+
                 //check if the provided input is an existing schedule
                 if (currentAccount === scheduleData[i].account && found == false) {
 
@@ -186,6 +188,7 @@ $(document).ready(function () {
 
                     //hide content and the search bar
                     $('.scheduleSearch').hide();
+                    $(".showSchedules").hide();
                     $('.content').hide();
 
 
@@ -243,6 +246,7 @@ $(document).ready(function () {
         $('#scheduleContainer').hide();
         $('.scheduleSearch').hide();
         $('.scheduleDelete').hide();
+        $('.showSchedules').hide();
 
         //hide buttons
         $('#createSchedule').hide();
@@ -340,14 +344,22 @@ $(document).ready(function () {
                         currentAccount = _username;
 
                         //change the content of both tags to the text for the schedule screen
-                        contenth1.textContent = "Your Schedules";
+                        contenth1.text("Your Schedules");
 
-                        contentp.textContent = "Access, create or delete your schedules here.";
+                        contentp.text("Access, create or delete your schedules here.");
 
                         //create buttons for schedule
                         var accessScheduleButton = $('<button id="accessSchedule">Access Schedule</button>');
                         var createScheduleButton = $('<button id="createSchedule">Create Schedule</button>');
                         var deleteScheduleButton = $('<button id="deleteSchedule">Delete Schedule</button>');
+
+                        //retrieve the existing data from local storage and add all schedules to be displayed
+                        var scheduleData = JSON.parse(localStorage.getItem("schedules.json")) || [];
+                        for (var i = 0; i < scheduleData.length; i++) {
+                            if (scheduleData[i].account == currentAccount) {
+                                $(".showSchedules").append(scheduleData[i].scheduleTitle);
+                            }
+                        };
 
                         //rewrite the new schedule
                         $('.content').append(accessScheduleButton, createScheduleButton, deleteScheduleButton);
@@ -379,11 +391,24 @@ $(document).ready(function () {
 
                         $('.schedule').submit(function (event) {
 
+                            //disable the submit button to stop multiple entries in one go
+                            $("#schedule-submit").prop("disabled", true);
+
                             //prevent default action
                             event.preventDefault();
 
-                            //display schedule form
-                            scheduleStore(currentAccount);
+                            //display schedule form and also return the title of the schedule
+                            var title = scheduleStore(currentAccount);
+
+                            $(".showSchedules").append(title);
+
+                            //enable the submit button to stop multiple entries in one go
+                            $("#schedule-submit").prop("disabled", false);
+
+                            //hide the register form
+                            $('.schedule').hide();
+                            //show the content again
+                            $('.content').show();
 
                         })
                           
@@ -492,6 +517,8 @@ $(document).ready(function () {
         //if already logged in
         else {
 
+            
+
             //change the content of both tags to the text for the schedule screen
             var contenth1 = $('.content').children('h1');
 
@@ -522,11 +549,24 @@ $(document).ready(function () {
 
                 $('.schedule').submit(function (event) {
 
+                    //disable the submit button to stop multiple entries in one go
+                    $("#schedule-submit").prop("disabled", true);
+
                     //prevent default action
                     event.preventDefault();
 
-                    //display schedule form
-                    scheduleStore(currentAccount);
+                    //display schedule form and also return the title of the schedule
+                    var title = scheduleStore(currentAccount);
+
+                    $(".showSchedules").append(title);
+
+                    //enable the submit button to stop multiple entries in one go
+                    $("#schedule-submit").prop("disabled", false);
+
+                    //hide the register form
+                    $('.schedule').hide();
+                    //show the content again
+                    $('.content').show();
 
                 })
 
@@ -577,6 +617,7 @@ $(document).ready(function () {
 
         $('.scheduleSearch').hide();
         $('.scheduleDelete').hide();
+        $('.showSchedules').hide();
 
         //hide buttons
         $('#createSchedule').hide();
@@ -618,6 +659,7 @@ $(document).ready(function () {
         //hide schedule page
         $('#scheduleContainer').hide();
         $('.scheduleSearch').hide();
+        $('.showSchedules').hide();
 
         //hide buttons
         $('#createSchedule').hide();

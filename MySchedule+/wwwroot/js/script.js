@@ -313,6 +313,28 @@ $(document).ready(function () {
 
                 $('.content').hide();
 
+                //create variables to store field data
+                var _username = "";
+                var _password = "";
+
+                //Hide the password as it is typed
+                $('#login-password').on('input', function () {
+
+                    //store each character before it is turned into an astix and add it to the password string
+                    let currentCharacter = $(this).val().slice(-1);
+                    _password += currentCharacter;
+                    console.log(_password);
+
+                    //store the password value
+                    let tempPassword = $(this).val();
+
+                    //replace it with astrix's as it is typed
+                    let maskedValue = tempPassword.replace(/./g, '*');
+
+                    //change the value of the input field to the astrix
+                    $(this).val(maskedValue);
+                });
+
                 //Set up what happens when you submit
                 $(".login").submit(function (event) {
                     //prevent default action
@@ -321,17 +343,9 @@ $(document).ready(function () {
                     //disable the submit button to stop multiple entries in one go
                     $("#login-submit").prop("disabled", true);
 
-                    //create variables to store field data
-                    var _username;
-                    var _password;
-
                     //get data from both fields entered
                     _username = $("#login-username").val();
-                    _password = $("#login-password").val();
-
-                    //encrypt the password
                     
-
                     //run the account login validater
                     var logInStatus = validateSignIn(_username, _password);
 
@@ -357,7 +371,7 @@ $(document).ready(function () {
                         var scheduleData = JSON.parse(localStorage.getItem("schedules.json")) || [];
                         for (var i = 0; i < scheduleData.length; i++) {
                             if (scheduleData[i].account == currentAccount) {
-                                $(".showSchedules").append(scheduleData[i].scheduleTitle);
+                                $(".showSchedules").append(scheduleData[i].scheduleTitle + "\n");
                             }
                         };
 
@@ -371,9 +385,13 @@ $(document).ready(function () {
                     //if username or password field are left blank tell user to please fill in the fields
                     else if (_username == "" || _password == "") {
                         alert("Please fill in both fields.");
+                        _password = "";
+                        $('.login').reset();
                     }
                     else {
+                        _password = "";
                         alert("Incorrect username or password, please enter the correct details");
+                        $('.login').reset();
                     }
                     //enable register submition again
                     $("#login-submit").prop("disabled", false);
@@ -453,9 +471,27 @@ $(document).ready(function () {
                 //hide the content from the screen
                 $('.content').hide();
 
-                //create username and password variables
-                var _username;
-                var _password;
+                var _username = "";
+                var _password = "";
+
+
+                //Store the password but hide it with astrixs while it gets typed
+                $('#register-password').on('input', function () {
+
+                    //store each character before it is turned into an astix and add it to the password string
+                    let currentCharacter = $(this).val().slice(-1);
+                    _password += currentCharacter;
+                    console.log(_password);
+
+                    //store the password value
+                    let tempPassword = $(this).val();
+
+                    //replace it with astrix's as it is typed
+                    let maskedValue = tempPassword.replace(/./g, '*');
+
+                    //change the value of the input field to the astrix
+                    $(this).val(maskedValue);
+                });
 
                 //if the submit button is pressed run the following function
                 $(".register").submit(function (event) {
@@ -467,7 +503,6 @@ $(document).ready(function () {
 
                     //get the username and password from the input field
                     _username = $("#register-username").val();
-                    _password = $("#register-password").val();
 
                     //retrieve the existing data from local storage
                     var accountData = JSON.parse(localStorage.getItem("accounts.json")) || [];

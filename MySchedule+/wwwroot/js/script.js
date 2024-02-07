@@ -21,6 +21,64 @@ $(document).ready(function () {
     var loggedIn = false;
     var currentAccount;
 
+    //function to check time spent on activities and return if they are spending too long, too little time on activties
+    //as this is a prototype there will only be a few checks for common activties
+    function scheduleCheck(activity, time) {
+
+        //set up colour codes for red, amber and green
+        var red = "#d2222d";
+        var amber = "#ffbf00";
+        var green = "#238823";
+
+        //change the schedules background colour if needs be
+        //10 hours is quite a bit of time so as a standard if any time spent is over this it'll automatically be red
+        if (time > 10) {
+            $(activity).css("background-color", red)
+        }
+
+        activityName = activity.val();
+
+        timeSpent = time.val();
+
+        //Run a check for gaming as an acitvity
+        if (activityName.toLowerCase() === "gaming") {
+            //after doing some research I came to the conclusion that 4 hours seems like the upper most limit for a healthy gaming balanec
+            if (timeSpent >= 0 && timeSpent <= 4) {
+                $(activity).css("background-color", green);
+            }
+            else if (timeSpent > 4 && timeSpent <= 6) {
+                $(activity).css("background-color", amber);
+            }
+            else if (timeSpent > 6) {
+                $(activity).css("background-color", red);
+            }
+        }
+        else if (activityName.toLowerCase() === "working") {
+            //after doing some research I came to the conclusion that 4 hours seems like the upper most limit for a healthy gaming balanec
+            if (timeSpent >= 0 && timeSpent <= 5) {
+                $(activity).css("background-color", green);
+            }
+            else if (timeSpent > 5 && timeSpent <= 9) {
+                $(activity).css("background-color", amber);
+            }
+            else if (timeSpent > 9) {
+                $(activity).css("background-color", red);
+            }
+        }
+        else if (activityName.toLowerCase() === "gaming") {
+            //after doing some research I came to the conclusion that 4 hours seems like the upper most limit for a healthy gaming balanec
+            if (timeSpent >= 0 && timeSpent <= 4) {
+                $(activity).css("background-color", green);
+            }
+            else if (timeSpent > 4 && timeSpent <= 6) {
+                $(activity).css("background-color", amber);
+            }
+            else if (timeSpent > 6) {
+                $(activity).css("background-color", red);
+            }
+        }
+    }
+
     function validateSignIn(user, pass) {
 
         //Get all the registered accounts from the json file in local storage
@@ -318,12 +376,22 @@ $(document).ready(function () {
                 var _password = "";
 
                 //Hide the password as it is typed
-                $('#login-password').on('input', function () {
+                $('#login-password').on('keydown', function (event) {
 
                     //store each character before it is turned into an astix and add it to the password string
                     let currentCharacter = $(this).val().slice(-1);
-                    _password += currentCharacter;
-                    console.log(_password);
+                    //check if a backspace/ delete key has been pressed, if so delete the last character entered
+                    if (event.key === "Backspace" || event.key === "Delete") {
+                        _password = _password.slice(0, -1);
+                        console.log(_password);
+                    }
+                    else if (event.key == "Shift") {
+                        _password == _password;
+                    }
+                    else {
+                        _password += currentCharacter;
+                        console.log(_password);
+                    }
 
                     //store the password value
                     let tempPassword = $(this).val();
@@ -385,13 +453,15 @@ $(document).ready(function () {
                     //if username or password field are left blank tell user to please fill in the fields
                     else if (_username == "" || _password == "") {
                         alert("Please fill in both fields.");
+                        //reset the password to blank so that it can be re-entered if there are any issues logging in
                         _password = "";
-                        $('.login').reset();
+
                     }
                     else {
-                        _password = "";
                         alert("Incorrect username or password, please enter the correct details");
-                        $('.login').reset();
+                        //reset the password to blank so that it can be re-entered if there are any issues logging in
+                        _password = "";
+
                     }
                     //enable register submition again
                     $("#login-submit").prop("disabled", false);
@@ -402,10 +472,26 @@ $(document).ready(function () {
                         //prevent default action
                         event.preventDefault();
 
+                        //create a bool variable to loop the code so we can keep checking the schedules
+                        var submitted = false;
                         //hide the content
                         $(".content").hide();
 
                         $('.schedule').show();
+
+                        //check the activities provided
+                        $('#quantity').on('input', function () {
+                            //run a check on the schedule
+                            scheduleCheck($("#activity1"), $("#quantity"));
+                        });
+                        $('#quantity2').on('input', function () {
+                            //run a check on the schedule
+                            scheduleCheck($("#activity2"), $("#quantity2"));
+                        });
+                        $('#quantity3').on('input', function () {
+                            //run a check on the schedule
+                            scheduleCheck($("#activity3"), $("#quantity3"));
+                        });
 
                         $('.schedule').submit(function (event) {
 
@@ -476,13 +562,23 @@ $(document).ready(function () {
 
 
                 //Store the password but hide it with astrixs while it gets typed
-                $('#register-password').on('input', function () {
+                $('#register-password').on('keydown', function () {
 
                     //store each character before it is turned into an astix and add it to the password string
                     let currentCharacter = $(this).val().slice(-1);
-                    _password += currentCharacter;
-                    console.log(_password);
 
+                    //check if a backspace/ delete key has been pressed, if so delete the last character entered
+                    if (event.key === "Backspace" || event.key === "Delete") {
+                        _password = _password.slice(0, -1);
+                        console.log(_password);
+                    }
+                    else if (event.key == "Shift") {
+                        _password == _password;
+                    }
+                    else {
+                        _password += currentCharacter;
+                        console.log(_password);
+                    }
                     //store the password value
                     let tempPassword = $(this).val();
 

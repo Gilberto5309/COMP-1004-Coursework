@@ -65,7 +65,7 @@ $(document).ready(function () {
                 $(activity).css("background-color", red);
             }
         }
-        else if (activityName.toLowerCase() === "gaming") {
+        else if (activityName.toLowerCase() === "exercise") {
             //after doing some research I came to the conclusion that 4 hours seems like the upper most limit for a healthy gaming balanec
             if (timeSpent >= 0 && timeSpent <= 4) {
                 $(activity).css("background-color", green);
@@ -77,6 +77,19 @@ $(document).ready(function () {
                 $(activity).css("background-color", red);
             }
         }
+        else if (activityName.toLowerCase() === "sleeping") {
+            //after doing some research I came to the conclusion that 4 hours seems like the upper most limit for a healthy gaming balanec
+            if (timeSpent >= 8 && timeSpent <= 12) {
+                $(activity).css("background-color", green);
+            }
+            else if (timeSpent > 4 && timeSpent <= 8) {
+                $(activity).css("background-color", amber);
+            }
+            else if (timeSpent < 4) {
+                $(activity).css("background-color", red);
+            }
+        }
+
     }
 
     function validateSignIn(user, pass) {

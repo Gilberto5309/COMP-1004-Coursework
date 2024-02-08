@@ -42,7 +42,7 @@ $(document).ready(function () {
 
         //Run a check for gaming as an acitvity
         if (activityName.toLowerCase() === "gaming") {
-            //after doing some research I came to the conclusion that 4 hours seems like the upper most limit for a healthy gaming balanec
+            //after doing some research I came to the conclusion that 4 hours seems like the upper most limit for a healthy gaming balance
             if (timeSpent >= 0 && timeSpent <= 4) {
                 $(activity).css("background-color", green);
             }
@@ -54,7 +54,7 @@ $(document).ready(function () {
             }
         }
         else if (activityName.toLowerCase() === "working") {
-            //after doing some research I came to the conclusion that 4 hours seems like the upper most limit for a healthy gaming balanec
+            //after doing some research I came to the conclusion that 4 hours seems like the upper most limit for a healthy working balance
             if (timeSpent >= 0 && timeSpent <= 5) {
                 $(activity).css("background-color", green);
             }
@@ -66,7 +66,7 @@ $(document).ready(function () {
             }
         }
         else if (activityName.toLowerCase() === "exercise") {
-            //after doing some research I came to the conclusion that 4 hours seems like the upper most limit for a healthy gaming balanec
+            //after doing some research I came to the conclusion that 4 hours seems like the upper most limit for a healthy exercise balance
             if (timeSpent >= 0 && timeSpent <= 4) {
                 $(activity).css("background-color", green);
             }
@@ -78,7 +78,7 @@ $(document).ready(function () {
             }
         }
         else if (activityName.toLowerCase() === "sleeping") {
-            //after doing some research I came to the conclusion that 4 hours seems like the upper most limit for a healthy gaming balanec
+            //after doing some research I came to the conclusion that 4 hours seems like the upper most limit for a healthy sleeping balance
             if (timeSpent >= 8 && timeSpent <= 12) {
                 $(activity).css("background-color", green);
             }

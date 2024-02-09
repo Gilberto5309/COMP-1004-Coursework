@@ -89,6 +89,18 @@ $(document).ready(function () {
                 $(activity).css("background-color", red);
             }
         }
+        else if (activityName.toLowerCase() === "social") {
+            //after doing some research I came to the conclusion that 4 hours seems like the upper most limit for a healthy social time balance
+            if (timeSpent >= 0 && timeSpent <= 8) {
+                $(activity).css("background-color", green);
+            }
+            else if (timeSpent > 8 && timeSpent <= 10) {
+                $(activity).css("background-color", amber);
+            }
+            else if (timeSpent < 12) {
+                $(activity).css("background-color", red);
+            }
+        }
 
     }
 
@@ -745,7 +757,7 @@ $(document).ready(function () {
         var contentp = $('.content').children('p');
 
         contenth1.text("Support");
-        contentp.text("This is an application that will allow you to manage your time by adding your daily activities to a schedule. On the account menu you can register an account or sign in. Your schedules will be linked to your account and you can update the schedule and will receive feedback on how healthy your time management is and the site will give suggestions for improvements.");
+        contentp.text("This is an application that will allow you to manage your time by adding your daily activities to a schedule. On the account menu you can register an account or sign in. Your schedules will be linked to your account and you can update the schedule and will receive feedback on how healthy your time management is and the site will give suggestions for improvements. The colour of the box indicates if you are spending too much or too little time. Green means you are spending a healthy amount of time on the activity, amber means you could maybe consider changing the amount of time spent on the activity and red means you really need to change how much time you spend on this activity");
 
         //hide the form
         $('.login').hide();

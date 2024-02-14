@@ -21,6 +21,13 @@ $(document).ready(function () {
     var loggedIn = false;
     var currentAccount;
 
+    //create buttons
+    //create buttons for schedule
+    var accessScheduleButton = $('<button id="accessSchedule">Access Schedule</button>');
+    var createScheduleButton = $('<button id="createSchedule">Create Schedule</button>');
+    var deleteScheduleButton = $('<button id="deleteSchedule">Delete Schedule</button>');
+    var logOutButton = $('<button id="logOut">Log Out</button>');
+
     //function to check time spent on activities and return if they are spending too long, too little time on activties
     //as this is a prototype there will only be a few checks for common activties
     function scheduleCheck(activity, time) {
@@ -97,7 +104,7 @@ $(document).ready(function () {
             else if (timeSpent > 8 && timeSpent <= 10) {
                 $(activity).css("background-color", amber);
             }
-            else if (timeSpent < 12) {
+            else if (timeSpent > 12) {
                 $(activity).css("background-color", red);
             }
         }
@@ -114,7 +121,7 @@ $(document).ready(function () {
         //traverse the array of accounts and find a matching username and password
         for (var i = 0; i < accounts.length; i++){
             //check for username
-            if (user === accounts[i].username) {
+            if (user.toLowerCase() === accounts[i].username.toLowerCase()) {
                 //check that the password is also correct
                 if (pass === accounts[i].password) {
                     //return true if both fields are correct
@@ -142,6 +149,7 @@ $(document).ready(function () {
         $('#createSchedule').hide();
         $('#deleteSchedule').hide();
         $('#accessSchedule').hide(); 
+        $('#logOut').hide();
         
         //when the submit button is pressed
         $('.scheduleDelete').submit(function () {
@@ -222,12 +230,13 @@ $(document).ready(function () {
 
     }
 
-    function viewSchedule(createButton, deleteButton, viewButton, currentAccount) {
+    function viewSchedule(currentAccount) {
 
         //hide buttons
-        $(createButton).hide();
-        $(deleteButton).hide();
-        $(viewButton).hide();
+        $('#createSchedule').hide();
+        $('#deleteSchedule').hide();
+        $('#accessSchedule').hide(); 
+        $('#logOut').hide();
 
         $('.scheduleSearch').show();
         $('.showSchedules').show();
@@ -305,9 +314,10 @@ $(document).ready(function () {
                         $(scheduleContainer).hide();
                         //re-display the buttons and content
                         $('.content').show();
-                        $(createButton).show();
-                        $(deleteButton).show();
-                        $(viewButton).show();
+                        $('#createSchedule').show();
+                        $('#deleteSchedule').show();
+                        $('#accessSchedule').show();
+                        $('#logOut').show();
                     });
 
                 }
@@ -335,6 +345,7 @@ $(document).ready(function () {
         $('#createSchedule').hide();
         $('#deleteSchedule').hide();
         $('#accessSchedule').hide();
+        $('#logOut').hide();
 
         if (loggedIn == false) {
 
@@ -442,6 +453,9 @@ $(document).ready(function () {
                     //run the account login validater
                     var logInStatus = validateSignIn(_username, _password);
 
+                    console.log(logInStatus);
+
+                    console.log(_username);
                     //check if login is valid or not
                     if (logInStatus == true) {
                         //hide login form and display schedule form
@@ -455,10 +469,6 @@ $(document).ready(function () {
 
                         contentp.text("Access, create or delete your schedules here.");
 
-                        //create buttons for schedule
-                        var accessScheduleButton = $('<button id="accessSchedule">Access Schedule</button>');
-                        var createScheduleButton = $('<button id="createSchedule">Create Schedule</button>');
-                        var deleteScheduleButton = $('<button id="deleteSchedule">Delete Schedule</button>');
 
                         //retrieve the existing data from local storage and add all schedules to be displayed
                         var scheduleData = JSON.parse(localStorage.getItem("schedules.json")) || [];
@@ -469,7 +479,7 @@ $(document).ready(function () {
                         };
 
                         //rewrite the new schedule
-                        $('.content').append(accessScheduleButton, createScheduleButton, deleteScheduleButton);
+                        $('.content').append(accessScheduleButton, createScheduleButton, deleteScheduleButton, logOutButton);
                         //display content
                         $(".content").show();
 
@@ -490,6 +500,27 @@ $(document).ready(function () {
                     }
                     //enable register submition again
                     $("#login-submit").prop("disabled", false);
+
+                    //check if the log out button is pressed
+                    logOutButton.click(function (event) {
+
+                        //prevent the default action
+                        event.preventDefault();
+
+                        //set the logged in status to false 
+                        loggedIn = false;
+
+                        //clear the form
+                        $('#login-username').val("");
+                        $('#login-password').val("");
+
+                        //reset the password
+                        _password = "";
+
+                        //log out
+                        location.reload();
+
+                    });
 
                     //check what button has been pressed
                     createScheduleButton.click(function (event) {
@@ -686,11 +717,33 @@ $(document).ready(function () {
             $('#accessSchedule').show();
             $('#createSchedule').show();
             $('#deleteSchedule').show();
+            $('#logOut').show();
 
             //hide schedule page
             $('#scheduleContainer').hide();
             $('.scheduleSearch').hide();
             $('.scheduleDelete').hide();
+
+            //check if the log out button is pressed
+            $('#logOut').click(function (event) {
+
+                //prevent the default action
+                event.preventDefault();
+
+                //set the logged in status to false 
+                loggedIn = false;
+
+                //clear the form
+                $('#login-username').val("");
+                $('#login-password').val("");
+
+                //reset the password
+                _password = "";
+
+                //call the account menu
+                return returnHome();
+
+            });
 
             //check what button has been pressed
             $('#createSchedule').click(function (event) {
@@ -779,6 +832,7 @@ $(document).ready(function () {
         $('#createSchedule').hide();
         $('#deleteSchedule').hide();
         $('#accessSchedule').hide();
+        $('#logOut').hide();
 
         //show the content back on the page
         $('.content').show();
@@ -821,6 +875,7 @@ $(document).ready(function () {
         $('#createSchedule').hide();
         $('#deleteSchedule').hide();
         $('#accessSchedule').hide();
+        $('#logOut').hide();
 
         //show the content back on the page
         $('.content').show();

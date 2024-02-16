@@ -241,6 +241,8 @@ $(document).ready(function () {
         $('.scheduleSearch').show();
         $('.showSchedules').show();
 
+        console.log(currentAccount);
+
         //retrieve the existing data from local storage
         var scheduleData = JSON.parse(localStorage.getItem("schedules.json")) || [];
 
@@ -260,7 +262,7 @@ $(document).ready(function () {
             for (var i = 0; i < scheduleData.length; i++) {
 
                 //check if the provided input is an existing schedule
-                if (currentAccount === scheduleData[i].account && found == false) {
+                if (currentAccount === scheduleData[i].account) {
 
                     //create an exit button to stop viewing your schedule
                     var exitButton = $('<button id="exitButton">EXIT</button>');
@@ -580,7 +582,7 @@ $(document).ready(function () {
                         event.preventDefault();
 
                         //run the view schedule function
-                        viewSchedule("#createSchedule", "#deleteSchedule", "#accessSchedule", currentAccount);
+                        viewSchedule(currentAccount);
                     });
 
                     deleteScheduleButton.click(function (event) {

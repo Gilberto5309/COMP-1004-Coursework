@@ -28,6 +28,39 @@ $(document).ready(function () {
     var deleteScheduleButton = $('<button id="deleteSchedule">Delete Schedule</button>');
     var logOutButton = $('<button id="logOut">Log Out</button>');
 
+
+    //function for encrypting and decrypting passwords
+    function encryptPassword(password, key) {
+
+        //create a variable to store the encrypted password
+        var encryptedPass = '';
+
+        //loop through the given password and start encrypting it
+        for (var i = 0; i < password.length; i++) {
+
+            //get the ascii value of each character
+            var charCode = password.charCodeAt(i);
+
+            if (charCode >= 65 && charCode <= 90) {
+                //uppercase letters
+                encryptedPass += String.fromCharCode((charCode - 65 + key) % 26 + 65);
+            } else if (charCode >= 97 && charCode <= 122) {
+                //lowercase letters
+                encryptedPass += String.fromCharCode((charCode - 97 + key) % 26 + 97);
+            } else {
+                //non-alphabetic characters
+                encryptedPass += password.charAt(i)
+            }
+        }
+
+        return encryptedPass;
+
+    }
+
+    function decryptPassword(password, key) {
+
+    }
+
     //function to check time spent on activities and return if they are spending too long, too little time on activties
     //as this is a prototype there will only be a few checks for common activties
     function scheduleCheck(activity, time) {

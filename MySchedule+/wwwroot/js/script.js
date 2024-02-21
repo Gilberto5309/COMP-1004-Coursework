@@ -28,7 +28,35 @@ $(document).ready(function () {
     var deleteScheduleButton = $('<button id="deleteSchedule">Delete Schedule</button>');
     var logOutButton = $('<button id="logOut">Log Out</button>');
 
+    //function to export json to flat file
+    function exportJson() {
 
+        //Get all the schedules from the json file in local storage
+        var allSchedules = JSON.parse(localStorage.getItem("schedules.json")) || [];
+
+        //store the schedule as a string
+        const jsonString = JSON.stringify(allSchedules, null, 2);
+
+        //store the file name
+        const fileName = './Schedules.json'
+
+        const blob = new Blob([jsonString], { type: 'application/json' });
+
+        //download the file using saveAs function
+        saveAs(blob, fileName);
+    }
+
+    //function to read exported file
+    function readFile(schedulesFile) {
+
+        const reader = new FileReader();
+        reader.onload = function (event) {
+            const jsonData = JSON.parse(event.target.result);
+            // Use jsonData in your application
+            console.log(jsonData);
+        };
+        reader.readAsText(file);
+    }
     //function for encrypting and decrypting passwords
     function encryptPassword(password, key) {
 
@@ -634,6 +662,9 @@ $(document).ready(function () {
                             $('#activity3').css("background-color", "#c98f42")
 
                             $(".showSchedules").append(title);
+
+                            //export the schedule to a json flat file
+                            exportJson();
 
                             //enable the submit button to stop multiple entries in one go
                             $("#schedule-submit").prop("disabled", false);

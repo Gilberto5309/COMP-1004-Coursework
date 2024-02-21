@@ -32,6 +32,8 @@ $(document).ready(function () {
     //function for encrypting and decrypting passwords
     function encryptPassword(password, key) {
 
+
+        console.log(password);
         //create a variable to store the encrypted password
         var encryptedPass = '';
 
@@ -53,12 +55,35 @@ $(document).ready(function () {
             }
         }
 
+        console.log(encryptedPass)
         return encryptedPass;
 
     }
 
     function decryptPassword(password, key) {
 
+        //create a variable to store the encrypted password
+        var decryptedPass = '';
+
+        //loop through the given password and start encrypting it
+        for (var i = 0; i < password.length; i++) {
+
+            //get the ascii value of each character
+            var charCode = password.charCodeAt(i);
+
+            if (charCode >= 65 && charCode <= 90) {
+                //uppercase letters
+                decryptedPass += String.fromCharCode((charCode - 65 - key) % 26 + 65);
+            } else if (charCode >= 97 && charCode <= 122) {
+                //lowercase letters
+                decryptedPass += String.fromCharCode((charCode - 97 - key) % 26 + 97);
+            } else {
+                //non-alphabetic characters
+                decryptedPass += password.charAt(i)
+            }
+        }
+
+        return decryptedPass;
     }
 
     //function to check time spent on activities and return if they are spending too long, too little time on activties
@@ -151,12 +176,19 @@ $(document).ready(function () {
 
         //status on account
         var found = false;
+
         //traverse the array of accounts and find a matching username and password
         for (var i = 0; i < accounts.length; i++){
+
+            //get the encrypted password
+            var encryptedPassword = accounts[i].password;
+
+            //decrypt the password
+            var decryptedPassword = decryptPassword(encryptedPassword, 5);
             //check for username
             if (user.toLowerCase() === accounts[i].username.toLowerCase()) {
                 //check that the password is also correct
-                if (pass === accounts[i].password) {
+                if (pass === decryptedPassword) {
                     //return true if both fields are correct
                     found = true
                     break;
@@ -169,20 +201,24 @@ $(document).ready(function () {
                 found = false;
             }
         }
+        console.log(encryptedPassword);
+        console.log(decryptedPassword);
         return found;
 
     }
 
     //create a function to delete entries into the schedule storage
     function scheduleDelete(currentAccount) {
-        //show the schedule delete form
-        $('.scheduleDelete').show();
-        $('.showSchedules').show();
+        
         //hide buttons
         $('#createSchedule').hide();
         $('#deleteSchedule').hide();
         $('#accessSchedule').hide(); 
         $('#logOut').hide();
+
+        //show the schedule delete form
+        $('.scheduleDelete').show();
+        $('.showSchedules').show();
         
         //when the submit button is pressed
         $('.scheduleDelete').submit(function () {
@@ -274,8 +310,6 @@ $(document).ready(function () {
         $('.scheduleSearch').show();
         $('.showSchedules').show();
 
-        console.log(currentAccount);
-
         //retrieve the existing data from local storage
         var scheduleData = JSON.parse(localStorage.getItem("schedules.json")) || [];
 
@@ -358,7 +392,6 @@ $(document).ready(function () {
                 }
             }
 
-            console.log(found);
             //if found is false
             if (found == false) {
                 alert("Schedule either does not exist or is linked to another account");
@@ -488,13 +521,10 @@ $(document).ready(function () {
                     //run the account login validater
                     var logInStatus = validateSignIn(_username, _password);
 
-                    console.log(logInStatus);
-
-                    console.log(_username);
+                   
                     //check if login is valid or not
                     if (logInStatus == true) {
                         //hide login form and display schedule form
-                        alert("Log in successful");
                         $(".login").hide();
                         loggedIn = true;
                         currentAccount = _username;
@@ -595,6 +625,14 @@ $(document).ready(function () {
                             //display schedule form and also return the title of the schedule
                             var title = scheduleStore(currentAccount);
 
+                            //reset the schedule so all fields are clear
+                            $('.schedule')[0].reset();
+
+                            //reset the colours of the input fields
+                            $('#activity1').css("background-color", "#c98f42")
+                            $('#activity2').css("background-color", "#c98f42")
+                            $('#activity3').css("background-color", "#c98f42")
+
                             $(".showSchedules").append(title);
 
                             //enable the submit button to stop multiple entries in one go
@@ -616,6 +654,9 @@ $(document).ready(function () {
 
                         //run the view schedule function
                         viewSchedule(currentAccount);
+
+                        //reset the search form
+                        $('.scheduleSearch')[0].reset();
                     });
 
                     deleteScheduleButton.click(function (event) {
@@ -625,6 +666,9 @@ $(document).ready(function () {
 
                         //call delete schedule button
                         scheduleDelete(currentAccount);
+
+                        //reset the search form
+                        $('.scheduleDelete')[0].reset();
 
                     });
 
@@ -661,14 +705,14 @@ $(document).ready(function () {
                     //check if a backspace/ delete key has been pressed, if so delete the last character entered
                     if (event.key === "Backspace" || event.key === "Delete") {
                         _password = _password.slice(0, -1);
-                        console.log(_password);
+                     
                     }
                     else if (event.key == "Shift") {
-                        _password == _password;
+                        _password = _password;
                     }
                     else {
                         _password += currentCharacter;
-                        console.log(_password);
+                 
                     }
                     //store the password value
                     let tempPassword = $(this).val();
@@ -678,12 +722,18 @@ $(document).ready(function () {
 
                     //change the value of the input field to the astrix
                     $(this).val(maskedValue);
+
                 });
 
                 //if the submit button is pressed run the following function
                 $(".register").submit(function (event) {
                     //prevent default form submission
                     event.preventDefault();
+
+                    //encrypt password
+                    var encryptedPassword = encryptPassword(_password, 5);
+
+                    console.log(encryptedPassword);
 
                     //disable the submit button to stop multiple entries in one go
                     $("#register-submit").prop("disabled", true);
@@ -707,7 +757,7 @@ $(document).ready(function () {
                         //add the data from the username and password field into an object
                         var accountObject = {
                             username: _username,
-                            password: _password
+                            password: encryptedPassword
                         };
 
                         //push the object into the array of data
@@ -802,6 +852,14 @@ $(document).ready(function () {
                     //display schedule form and also return the title of the schedule
                     var title = scheduleStore(currentAccount);
 
+                    //reset the schedule so all fields are clear
+                    $('.schedule')[0].reset();
+
+                    //reset the colours of the input fields
+                    $('#activity1').css("background-color", "#c98f42");
+                    $('#activity2').css("background-color", "#c98f42");
+                    $('#activity3').css("background-color", "#c98f42");
+                        
                     $(".showSchedules").append(title);
 
                     //enable the submit button to stop multiple entries in one go

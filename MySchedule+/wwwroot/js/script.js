@@ -31,30 +31,21 @@ $(document).ready(function () {
     //function to export json to flat file
     function exportJson() {
 
-        //Get all the schedules from the json file in local storage
+        // Get all the schedules from the JSON file in local storage
         var allSchedules = JSON.parse(localStorage.getItem("schedules.json")) || [];
 
-        //store the schedule as a string
+        // Store the schedule as a string
         const jsonString = JSON.stringify(allSchedules, null, 2);
 
-        //store the file name
-        const fileName = '_Schedules.json';
+        // Store the file name
+        const fileName = '_Schedules.json'; // Use the same filename
 
+        // Create a Blob object with the JSON data
         const blob = new Blob([jsonString], { type: 'application/json' });
 
-        // Create an anchor element
-        const a = document.createElement('a');
-        a.href = URL.createObjectURL(blob);
-        a.download = fileName;
+        // Save the Blob object as a file with FileSaver.js
+        saveAs(blob, fileName);
 
-        // Append the anchor element to the body
-        document.body.appendChild(a);
-
-        // Click the anchor element to trigger the download
-        a.click();
-
-        // Remove the anchor element
-        document.body.removeChild(a);
     }
 
     //function to fetch the file

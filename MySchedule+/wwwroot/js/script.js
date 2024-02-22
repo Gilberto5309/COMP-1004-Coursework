@@ -38,25 +38,43 @@ $(document).ready(function () {
         const jsonString = JSON.stringify(allSchedules, null, 2);
 
         //store the file name
-        const fileName = './Schedules.json'
+        const fileName = '_Schedules.json';
 
         const blob = new Blob([jsonString], { type: 'application/json' });
 
-        //download the file using saveAs function
-        saveAs(blob, fileName);
+        // Create an anchor element
+        const a = document.createElement('a');
+        a.href = URL.createObjectURL(blob);
+        a.download = fileName;
+
+        // Append the anchor element to the body
+        document.body.appendChild(a);
+
+        // Click the anchor element to trigger the download
+        a.click();
+
+        // Remove the anchor element
+        document.body.removeChild(a);
     }
 
-    //function to read exported file
-    function readFile(schedulesFile) {
+    //function to fetch the file
+    function fetchFile() {
 
-        const reader = new FileReader();
-        reader.onload = function (event) {
-            const jsonData = JSON.parse(event.target.result);
-            // Use jsonData in your application
-            console.log(jsonData);
-        };
-        reader.readAsText(file); 
+        //fileName 
+        const fileName = '/js/_Schedules.json';
+
+        return fetch(fileName)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .catch(error => {
+                console.error('There was a problem with the fetch operation:', error);
+            })
     }
+
     //function for encrypting and decrypting passwords
     function encryptPassword(password, key) {
 
@@ -327,7 +345,7 @@ $(document).ready(function () {
 
     }
 
-    function viewSchedule(currentAccount) {
+    function viewSchedule(schedules, currentAccount) {
 
         //hide buttons
         $('#createSchedule').hide();
@@ -338,9 +356,7 @@ $(document).ready(function () {
         $('.scheduleSearch').show();
         $('.showSchedules').show();
 
-        //retrieve the existing data from local storage
-        var scheduleData = JSON.parse(localStorage.getItem("schedules.json")) || [];
-
+        //when the search is submitted
         $(".scheduleSearch").submit(function (event) {
             //prevent default action
             event.preventDefault()
@@ -354,10 +370,10 @@ $(document).ready(function () {
 
             //search for the entered schedule name
 
-            for (var i = 0; i < scheduleData.length; i++) {
+            for (var i = 0; i < schedules.length; i++) {
 
                 //check if the provided input is an existing schedule
-                if (currentAccount === scheduleData[i].account) {
+                if (currentAccount === schedules[i].account) {
 
                     //create an exit button to stop viewing your schedule
                     var exitButton = $('<button id="exitButton">EXIT</button>');
@@ -366,7 +382,7 @@ $(document).ready(function () {
                     var desiredSchedule;
 
                     // check if the schedule exists
-                    for (const schedule of scheduleData) {
+                    for (const schedule of schedules) {
                         //if the input we provide us equal to the title of a schedule in our storage we retrieve  it
                         if (schedule.scheduleTitle === scheduleSearch) {
                             var desiredSchedule = schedule;
@@ -683,8 +699,22 @@ $(document).ready(function () {
                         //prevent default action
                         event.preventDefault();
 
-                        //run the view schedule function
-                        viewSchedule(currentAccount);
+                        //create a variable to hold json data
+                        let jsonObject = {};
+
+                        //read the json file
+                        fetchFile()
+                            .then(jsonData => {
+                                // Use jsonData once it has been fetched
+                                console.log(jsonData);
+
+                                //run the view schedule function
+                                viewSchedule(jsonData, currentAccount);
+                               
+                            })
+                            .catch(error => {
+                                console.error('There was a problem with fetching the file:', error);
+                            });
 
                         //reset the search form
                         $('.scheduleSearch')[0].reset();
@@ -910,8 +940,22 @@ $(document).ready(function () {
                 //prevent default action
                 event.preventDefault();
 
-                //run the view schedule function
-                viewSchedule("#createSchedule", "#deleteSchedule", "#accessSchedule", currentAccount);
+                //read the json file
+                fetchFile()
+                    .then(jsonData => {
+                        // Use jsonData once it has been fetched
+                        console.log(jsonData);
+
+                        //run the view schedule function
+                        viewSchedule(jsonData, currentAccount);
+
+                    })
+                    .catch(error => {
+                        console.error('There was a problem with fetching the file:', error);
+                    });
+
+                //reset the search form
+                $('.scheduleSearch')[0].reset();
             });
 
             $('#deleteSchedule').click(function (event) {
@@ -921,6 +965,9 @@ $(document).ready(function () {
 
                 //call delete schedule button
                 scheduleDelete(currentAccount);
+
+                //reset the search form
+                $('.scheduleDelete')[0].reset();
 
             });
         }

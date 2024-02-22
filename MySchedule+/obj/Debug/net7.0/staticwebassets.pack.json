@@ -13,10 +13,6 @@
       "PackagePath": "staticwebassets\\index.html"
     },
     {
-      "Id": "C:\\Users\\jjc19\\OneDrive\\Documents\\GitHub\\COMP-1004-Coursework\\MySchedule+\\wwwroot\\js\\Schedules.json",
-      "PackagePath": "staticwebassets\\js\\Schedules.json"
-    },
-    {
       "Id": "C:\\Users\\jjc19\\OneDrive\\Documents\\GitHub\\COMP-1004-Coursework\\MySchedule+\\wwwroot\\js\\readWriteData.js",
       "PackagePath": "staticwebassets\\js\\readWriteData.js"
     },

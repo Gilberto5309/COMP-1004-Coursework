@@ -11,10 +11,4 @@
     <Folder Include="wwwroot\img\" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Content Update="wwwroot\js\Schedules.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-  </ItemGroup>
-
 </Project>

@@ -55,7 +55,7 @@ $(document).ready(function () {
             // Use jsonData in your application
             console.log(jsonData);
         };
-        reader.readAsText(file);
+        reader.readAsText(file); 
     }
     //function for encrypting and decrypting passwords
     function encryptPassword(password, key) {

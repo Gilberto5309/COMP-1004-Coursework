@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "2HZNs/Se6RNmhbLImuzLcy7HzU1I0oeekOCrwEgC6c8=",
+  "Hash": "Ek/K0wh0gqLNdKeZNFQ91Vj8AHrArBpg7WlPOit5EFA=",
   "Source": "Myschedule+",
   "BasePath": "_content/Myschedule+",
   "Mode": "Default",
@@ -83,6 +83,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\js\\readWriteData.js"
+    },
+    {
+      "Identity": "C:\\Users\\jjc19\\OneDrive\\Documents\\GitHub\\COMP-1004-Coursework\\MySchedule+\\wwwroot\\js\\Schedule1.json",
+      "SourceId": "Myschedule+",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\jjc19\\OneDrive\\Documents\\GitHub\\COMP-1004-Coursework\\MySchedule+\\wwwroot\\",
+      "BasePath": "_content/Myschedule+",
+      "RelativePath": "js/Schedule1.json",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\js\\Schedule1.json"
     },
     {
       "Identity": "C:\\Users\\jjc19\\OneDrive\\Documents\\GitHub\\COMP-1004-Coursework\\MySchedule+\\wwwroot\\js\\script.js",

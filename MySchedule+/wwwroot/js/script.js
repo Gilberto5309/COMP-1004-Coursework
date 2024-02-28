@@ -29,16 +29,10 @@ $(document).ready(function () {
     var logOutButton = $('<button id="logOut">Log Out</button>');
 
     //function to export json to flat file
-    function exportJson() {
-
-        // Get all the schedules from the JSON file in local storage
-        var allSchedules = JSON.parse(localStorage.getItem("schedules.json")) || [];
+    function exportJson(fileName, scheduleObject) {
 
         // Store the schedule as a string
-        const jsonString = JSON.stringify(allSchedules, null, 2);
-
-        // Store the file name
-        const fileName = '_Schedules.json'; // Use the same filename
+        const jsonString = JSON.stringify(scheduleObject, null, 2);
 
         // Create a Blob object with the JSON data
         const blob = new Blob([jsonString], { type: 'application/json' });
@@ -49,12 +43,10 @@ $(document).ready(function () {
     }
 
     //function to fetch the file
-    function fetchFile() {
+    function fetchFile(fileName) {
 
-        //fileName 
-        const fileName = '/js/_Schedules.json';
-
-        return fetch(fileName)
+        //fetch the file
+        return fetch("/js/" + fileName + ".json")
             .then(response => {
                 if (!response.ok) {
                     throw new Error('Network response was not ok');
@@ -312,6 +304,15 @@ $(document).ready(function () {
             [activity3, time3]
         ]
 
+        //create a variable to hold the data about the schedule
+        let scheduleObject = [];
+
+        //push data to the variable so it can be exported to a json file
+        scheduleObject.push({ account, scheduleTitle, activities });
+
+        //export the file
+        exportJson(scheduleTitle, scheduleObject);
+
         //get the data from local storage as an array
         var schedules = JSON.parse(localStorage.getItem("schedules.json")) || [];
 
@@ -336,103 +337,89 @@ $(document).ready(function () {
 
     }
 
-    function viewSchedule(schedules, currentAccount) {
+    function viewSchedule(schedule, currentAccount) {
 
-        //hide buttons
-        $('#createSchedule').hide();
-        $('#deleteSchedule').hide();
-        $('#accessSchedule').hide(); 
-        $('#logOut').hide();
+      
+        //take in an input for the name of the schedule you want to view
+        var scheduleSearch = $("#scheduleInputTitle").val();
 
-        $('.scheduleSearch').show();
-        $('.showSchedules').show();
+        //check if schedule linked to account was found or if it exists
+        var found = false;
 
-        //when the search is submitted
-        $(".scheduleSearch").submit(function (event) {
-            //prevent default action
-            event.preventDefault()
+        //search for the entered schedule name
 
+        for (var i = 0; i < schedule.length; i++) {
 
-            //take in an input for the name of the schedule you want to view
-            var scheduleSearch = $("#scheduleInputTitle").val();
+            //check if the provided input is an existing schedule
+            if (currentAccount === schedule[i].account) {
 
-            //check if schedule linked to account was found or if it exists
-            var found = false;
+                //create an exit button to stop viewing your schedule
+                var exitButton = $('<button id="exitButton">EXIT</button>');
 
-            //search for the entered schedule name
+                //create a variable to store the schedule we want to retrieve
+                var desiredSchedule;
 
-            for (var i = 0; i < schedules.length; i++) {
+                // check if the schedule exists
+                for (const item of schedule) {
+                    //if the input we provide us equal to the title of a schedule in our storage we retrieve  it
+                    if (item.scheduleTitle === scheduleSearch) {
+                        var desiredSchedule = item;
+                        found = true;
 
-                //check if the provided input is an existing schedule
-                if (currentAccount === schedules[i].account) {
-
-                    //create an exit button to stop viewing your schedule
-                    var exitButton = $('<button id="exitButton">EXIT</button>');
-
-                    //create a variable to store the schedule we want to retrieve
-                    var desiredSchedule;
-
-                    // check if the schedule exists
-                    for (const schedule of schedules) {
-                        //if the input we provide us equal to the title of a schedule in our storage we retrieve  it
-                        if (schedule.scheduleTitle === scheduleSearch) {
-                            var desiredSchedule = schedule;
-                            found = true;
-
-                        }
                     }
+                }
 
-                    //hide content and the search bar
-                    $('.scheduleSearch').hide();
-                    $(".showSchedules").hide();
-                    $('.content').hide();
+                //hide content and the search bar
+                $('.scheduleSearch').hide();
+                $(".showSchedules").hide();
+                $('.content').hide();
 
 
-                    if (containerExists == false) {
-                        //create a varibale that stores the schedule container
-                        const scheduleContainer = $("#scheduleContainer");
+                if (containerExists == false) {
+                    //create a varibale that stores the schedule container
+                    const scheduleContainer = $("#scheduleContainer");
 
-                        //create a title element for the container
-                        const titleElement = $("<h1>").text(desiredSchedule.scheduleTitle);
+                    //create a title element for the container
+                    const titleElement = $("<h1>").text(desiredSchedule.scheduleTitle);
 
-                        //create a list to store the activties and the times for each one
-                        const activitiesList = $("<ul>").css("list-style-type", "none");
+                    //create a list to store the activties and the times for each one
+                    const activitiesList = $("<ul>").css("list-style-type", "none");
 
-                        //for each activity in the schedule store the activity and its time in a variable and append that variable to the activities list
-                        $.each(desiredSchedule.activities, function (index, activity) {
-                            const activityItem = $("<li>").text(`${activity[0]}: ${activity[1]} hours`);
-                            activitiesList.append(activityItem);
-                        });
-
-                        //append all these changes to the container
-                        scheduleContainer.append(titleElement, activitiesList, exitButton);
-
-                        //set exists to true
-                        containerExists = true;
-                    }
-                    //display the schedule container
-                    $('#scheduleContainer').show();
-
-                    //if the exit button is pressed hide the container
-                    exitButton.click(function (event) {
-                        $(scheduleContainer).hide();
-                        //re-display the buttons and content
-                        $('.content').show();
-                        $('#createSchedule').show();
-                        $('#deleteSchedule').show();
-                        $('#accessSchedule').show();
-                        $('#logOut').show();
+                    //for each activity in the schedule store the activity and its time in a variable and append that variable to the activities list
+                    $.each(desiredSchedule.activities, function (index, activity) {
+                        const activityItem = $("<li>").text(`${activity[0]}: ${activity[1]} hours`);
+                        activitiesList.append(activityItem);
                     });
 
+                    //append all these changes to the container
+                    scheduleContainer.append(titleElement, activitiesList, exitButton);
+
+                    //set exists to true
+                    containerExists = true;
                 }
-            }
+                //display the schedule container
+                $('#scheduleContainer').show();
 
-            //if found is false
-            if (found == false) {
-                alert("Schedule either does not exist or is linked to another account");
-            }
+                //if the exit button is pressed hide the container
+                exitButton.click(function (event) {
+                    $(scheduleContainer).hide();
+                    //re-display the buttons and content
+                    $('.content').show();
+                    $('#createSchedule').show();
+                    $('#deleteSchedule').show();
+                    $('#accessSchedule').show();
+                    $('#logOut').show();
+                });
 
-        });
+            }
+        }
+
+        //if found is false
+        if (found == false) {
+            alert("Schedule either does not exist or is linked to another account");
+        }
+
+        
     }
 
     //Function for changing to the accountMenu screen of the SPA`
@@ -670,9 +657,6 @@ $(document).ready(function () {
 
                             $(".showSchedules").append(title);
 
-                            //export the schedule to a json flat file
-                            exportJson();
-
                             //enable the submit button to stop multiple entries in one go
                             $("#schedule-submit").prop("disabled", false);
 
@@ -690,22 +674,33 @@ $(document).ready(function () {
                         //prevent default action
                         event.preventDefault();
 
-                        //create a variable to hold json data
-                        let jsonObject = {};
+                        //hide buttons
+                        $('#createSchedule').hide();
+                        $('#deleteSchedule').hide();
+                        $('#accessSchedule').hide();
+                        $('#logOut').hide();
 
-                        //read the json file
-                        fetchFile()
-                            .then(jsonData => {
-                                // Use jsonData once it has been fetched
-                                console.log(jsonData);
+                        //show the schedule delete form
+                        $('.scheduleSearch').show();
+                        $('.showSchedules').show();
 
-                                //run the view schedule function
-                                viewSchedule(jsonData, currentAccount);
-                               
-                            })
-                            .catch(error => {
-                                console.error('There was a problem with fetching the file:', error);
-                            });
+                        $('.scheduleSearch').submit(function (event) {
+
+                            //get schedule title
+                            var scheduleTitle = $('#scheduleInputTitle').val();
+
+                            //read the json file
+                            fetchFile(scheduleTitle)
+                                .then(jsonData => {
+                                    // Use jsonData once it has been fetched
+                                    console.log(jsonData);
+                                    //run the view schedule function
+                                    viewSchedule(jsonData, currentAccount);
+                                })
+                                .catch(error => {
+                                    console.error('There was a problem with fetching the file:', error);
+                                });
+                        })
 
                         //reset the search form
                         $('.scheduleSearch')[0].reset();
@@ -931,19 +926,33 @@ $(document).ready(function () {
                 //prevent default action
                 event.preventDefault();
 
-                //read the json file
-                fetchFile()
-                    .then(jsonData => {
-                        // Use jsonData once it has been fetched
-                        console.log(jsonData);
+                //hide buttons
+                $('#createSchedule').hide();
+                $('#deleteSchedule').hide();
+                $('#accessSchedule').hide();
+                $('#logOut').hide();
 
-                        //run the view schedule function
-                        viewSchedule(jsonData, currentAccount);
+                //show the schedule delete form
+                $('.scheduleSearch').show();
+                $('.showSchedules').show();
 
-                    })
-                    .catch(error => {
-                        console.error('There was a problem with fetching the file:', error);
-                    });
+                $('.scheduleSearch').submit(function (event) {
+
+                    //get schedule title
+                    var scheduleTitle = $('#scheduleInputTitle').val();
+
+                    //read the json file
+                    fetchFile(scheduleTitle)
+                        .then(jsonData => {
+                            // Use jsonData once it has been fetched
+                            console.log(jsonData);
+                            //run the view schedule function
+                            viewSchedule(jsonData, currentAccount);
+                        })
+                        .catch(error => {
+                            console.error('There was a problem with fetching the file:', error);
+                        });
+                })
 
                 //reset the search form
                 $('.scheduleSearch')[0].reset();

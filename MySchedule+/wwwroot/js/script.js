@@ -46,11 +46,12 @@ $(document).ready(function () {
     function fetchFile(fileName) {
 
         //fetch the file
-        return fetch("/js/" + fileName + ".json")
+        return fetch("/" + fileName + ".json")
             .then(response => {
                 if (!response.ok) {
                     throw new Error('Network response was not ok');
                 }
+                console.log("ok");
                 return response.json();
             })
             .catch(error => {

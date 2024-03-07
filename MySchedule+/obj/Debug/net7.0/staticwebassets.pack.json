@@ -1,6 +1,10 @@
 {
   "Files": [
     {
+      "Id": "C:\\Comp 1004\\COMP-1004\\MySchedule+\\wwwroot\\Schedule2.json",
+      "PackagePath": "staticwebassets\\Schedule2.json"
+    },
+    {
       "Id": "C:\\Comp 1004\\COMP-1004\\MySchedule+\\wwwroot\\css\\style.css",
       "PackagePath": "staticwebassets\\css\\style.css"
     },

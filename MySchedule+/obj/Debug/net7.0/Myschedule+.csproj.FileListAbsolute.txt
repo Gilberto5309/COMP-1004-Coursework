@@ -84,5 +84,4 @@ C:\Users\jjc19\OneDrive\Documents\GitHub\COMP-1004-Coursework\MySchedule+\bin\De
 C:\Users\jjc19\OneDrive\Documents\GitHub\COMP-1004-Coursework\MySchedule+\bin\Debug\net7.0\package.json
 C:\Comp 1004\COMP-1004\MySchedule+\bin\Debug\net7.0\package-lock.json
 C:\Comp 1004\COMP-1004\MySchedule+\bin\Debug\net7.0\package.json
-C:\Users\jjc19\OneDrive\Documents\GitHub\COMP-1004-Coursework\MySchedule+\bin\Debug\net7.0\_Schedules.json
 C:\Comp 1004\COMP-1004\MySchedule+\bin\Debug\net7.0\_Schedules.json

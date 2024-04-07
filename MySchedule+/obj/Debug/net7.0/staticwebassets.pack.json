@@ -1,12 +1,16 @@
 {
   "Files": [
     {
-      "Id": "C:\\Users\\jjc19\\OneDrive\\Documents\\GitHub\\COMP-1004-Coursework\\MySchedule+\\wwwroot\\Schedule2.json",
-      "PackagePath": "staticwebassets\\Schedule2.json"
+      "Id": "C:\\Users\\jjc19\\OneDrive\\Documents\\GitHub\\COMP-1004-Coursework\\MySchedule+\\wwwroot\\Schedule1.json",
+      "PackagePath": "staticwebassets\\Schedule1.json"
     },
     {
       "Id": "C:\\Users\\jjc19\\OneDrive\\Documents\\GitHub\\COMP-1004-Coursework\\MySchedule+\\wwwroot\\css\\style.css",
       "PackagePath": "staticwebassets\\css\\style.css"
+    },
+    {
+      "Id": "C:\\Users\\jjc19\\OneDrive\\Documents\\GitHub\\COMP-1004-Coursework\\MySchedule+\\wwwroot\\download.json",
+      "PackagePath": "staticwebassets\\download.json"
     },
     {
       "Id": "C:\\Users\\jjc19\\OneDrive\\Documents\\GitHub\\COMP-1004-Coursework\\MySchedule+\\wwwroot\\favicon.ico",

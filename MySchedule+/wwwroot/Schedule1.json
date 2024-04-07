@@ -4,16 +4,16 @@
     "scheduleTitle": "Schedule1",
     "activities": [
       [
-        "Gaming",
+        "gaming",
         "2"
       ],
       [
         "working",
-        "1"
+        "5"
       ],
       [
         "social",
-        "7"
+        "1"
       ]
     ]
   }

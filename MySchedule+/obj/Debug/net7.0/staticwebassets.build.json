@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "8YddgZBiy57DyTDZtEh9J8O4tANf1h10bmUamXnQzcw=",
+  "Hash": "WhuFx619KXlENSBkyB2h//j+HUvi3ifDxsfSKgRugSg=",
   "Source": "Myschedule+",
   "BasePath": "_content/Myschedule+",
   "Mode": "Default",
@@ -32,6 +32,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\css\\style.css"
+    },
+    {
+      "Identity": "C:\\Users\\jjc19\\OneDrive\\Documents\\GitHub\\COMP-1004-Coursework\\MySchedule+\\wwwroot\\download.json",
+      "SourceId": "Myschedule+",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\jjc19\\OneDrive\\Documents\\GitHub\\COMP-1004-Coursework\\MySchedule+\\wwwroot\\",
+      "BasePath": "_content/Myschedule+",
+      "RelativePath": "download.json",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\download.json"
     },
     {
       "Identity": "C:\\Users\\jjc19\\OneDrive\\Documents\\GitHub\\COMP-1004-Coursework\\MySchedule+\\wwwroot\\favicon.ico",
@@ -1071,12 +1088,12 @@
       "OriginalItemSpec": "wwwroot\\lib\\jquery-validation-unobtrusive\\LICENSE.txt"
     },
     {
-      "Identity": "C:\\Users\\jjc19\\OneDrive\\Documents\\GitHub\\COMP-1004-Coursework\\MySchedule+\\wwwroot\\Schedule2.json",
+      "Identity": "C:\\Users\\jjc19\\OneDrive\\Documents\\GitHub\\COMP-1004-Coursework\\MySchedule+\\wwwroot\\Schedule1.json",
       "SourceId": "Myschedule+",
       "SourceType": "Discovered",
       "ContentRoot": "C:\\Users\\jjc19\\OneDrive\\Documents\\GitHub\\COMP-1004-Coursework\\MySchedule+\\wwwroot\\",
       "BasePath": "_content/Myschedule+",
-      "RelativePath": "Schedule2.json",
+      "RelativePath": "Schedule1.json",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -1085,7 +1102,7 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\Schedule2.json"
+      "OriginalItemSpec": "wwwroot\\Schedule1.json"
     }
   ]
 }

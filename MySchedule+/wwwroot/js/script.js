@@ -45,8 +45,9 @@ $(document).ready(function () {
     //function to fetch the file
     function fetchFile(fileName) {
 
+        console.log(fileName);
         //fetch the file
-        return fetch("/" + fileName + ".json")
+        return fetch("./" + fileName + ".json")
             .then(response => {
                 if (!response.ok) {
                     throw new Error('Network response was not ok');
@@ -269,11 +270,19 @@ $(document).ready(function () {
                     localStorage.setItem("schedules.json", JSON.stringify(schedules, null, 2));
                     alert(`${deleteInput} has been deleted`);
                     $('.scheduleDelete').hide();
+                    $(".showSchedules").hide();
                     $('.content').show();
+                    //hide buttons
+                    $('#createSchedule').show();
+                    $('#deleteSchedule').show();
+                    $('#accessSchedule').show(); 
+                    $('#logOut').show();
                     scheduleFound = true;
                     break;
+                    
                 }
             }
+            console.log(scheduleFound);
             //if there is no matching name
             if (scheduleFound == false) {
                 //ask user to provide a valid schedule name
@@ -362,6 +371,7 @@ $(document).ready(function () {
 
                 // check if the schedule exists
                 for (const item of schedule) {
+                    console.log(item);
                     //if the input we provide us equal to the title of a schedule in our storage we retrieve  it
                     if (item.scheduleTitle === scheduleSearch) {
                         var desiredSchedule = item;
@@ -687,6 +697,9 @@ $(document).ready(function () {
 
                         $('.scheduleSearch').submit(function (event) {
 
+                            //disable the submit button to stop multiple entries in one go
+                            $("#scheduleSearch-submit").prop("disabled", true);
+
                             //get schedule title
                             var scheduleTitle = $('#scheduleInputTitle').val();
 
@@ -695,12 +708,15 @@ $(document).ready(function () {
                                 .then(jsonData => {
                                     // Use jsonData once it has been fetched
                                     console.log(jsonData);
-                                    //run the view schedule function
+                                   
                                     viewSchedule(jsonData, currentAccount);
                                 })
                                 .catch(error => {
-                                    console.error('There was a problem with fetching the file:', error);
+                                    alert("Schedule does not exist"); 
                                 });
+
+                            //enable the submit button to stop multiple entries in one go
+                            $("#scheduleSearch-submit").prop("disabled", false);
                         })
 
                         //reset the search form
@@ -709,11 +725,17 @@ $(document).ready(function () {
 
                     deleteScheduleButton.click(function (event) {
 
+                        //disable the submit button to stop multiple entries in one go
+                        $("#scheduleDelete-submit").prop("disabled", true);
+
                         //prevent default action
                         event.preventDefault();
 
                         //call delete schedule button
                         scheduleDelete(currentAccount);
+
+                        //enable the submit button to stop multiple entries in one go
+                        $("#scheduleDelete-submit").prop("disabled", false);
 
                         //reset the search form
                         $('.scheduleDelete')[0].reset();
@@ -824,7 +846,7 @@ $(document).ready(function () {
                         alert("Please fill in both fields.");
                     }
                     //if username already exists tell user to use a different username and password
-                    else {
+                    else if(usernameExists){
                         alert("Username already exists please choose a different one.");
                     }
 
@@ -939,6 +961,9 @@ $(document).ready(function () {
 
                 $('.scheduleSearch').submit(function (event) {
 
+                    //disable the submit button to stop multiple entries in one go
+                    $("#scheduleSearch-submit").prop("disabled", true);
+
                     //get schedule title
                     var scheduleTitle = $('#scheduleInputTitle').val();
 
@@ -951,8 +976,11 @@ $(document).ready(function () {
                             viewSchedule(jsonData, currentAccount);
                         })
                         .catch(error => {
-                            console.error('There was a problem with fetching the file:', error);
+                            alert("Schedule does not exist");
                         });
+
+                    //enable the submit button to stop multiple entries in one go
+                    $("#scheduleSearch-submit").prop("disabled", false);
                 })
 
                 //reset the search form
@@ -961,11 +989,17 @@ $(document).ready(function () {
 
             $('#deleteSchedule').click(function (event) {
 
+                //disable the submit button to stop multiple entries in one go
+                $("#scheduleDelete-submit").prop("disabled", true);
+
                 //prevent default action
                 event.preventDefault();
 
                 //call delete schedule button
                 scheduleDelete(currentAccount);
+
+                //enable the submit button to stop multiple entries in one go
+                $("#scheduleDelete-submit").prop("disabled", false);
 
                 //reset the search form
                 $('.scheduleDelete')[0].reset();

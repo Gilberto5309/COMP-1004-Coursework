@@ -34,30 +34,42 @@ $(document).ready(function () {
         // Store the schedule as a string
         const jsonString = JSON.stringify(scheduleObject, null, 2);
 
-        // Create a Blob object with the JSON data
-        const blob = new Blob([jsonString], { type: 'application/json' });
+        // Create a data URL for the JSON data
+        const dataUrl = 'data:application/json;charset=utf-8,' + encodeURIComponent(jsonString);
 
-        // Save the Blob object as a file with FileSaver.js
-        saveAs(blob, fileName);
+        // Create a temporary anchor element
+        const anchor = document.createElement('a');
+        anchor.href = dataUrl;
+        anchor.download = fileName + '.json';
+
+        // Append the anchor to the body and trigger a click event
+        document.body.appendChild(anchor);
+        anchor.click();
+
+        // Remove the anchor from the body after the download starts
+        document.body.removeChild(anchor);
 
     }
 
     //function to fetch the file
     function fetchFile(fileName) {
 
-        console.log(fileName);
-        //fetch the file
-        return fetch("./" + fileName + ".json")
+        return fetch(fileName + '.json')
             .then(response => {
                 if (!response.ok) {
                     throw new Error('Network response was not ok');
                 }
-                console.log("ok");
                 return response.json();
             })
-            .catch(error => {
-                console.error('There was a problem with the fetch operation:', error);
+            .then(jsonData => {
+                // Return the parsed JSON data
+                return jsonData;
             })
+            .catch(error => {
+                // Handle errors
+                console.error('There was a problem with the fetch operation:', error);
+                throw error;
+            });
     }
 
     //function for encrypting and decrypting passwords
@@ -218,6 +230,9 @@ $(document).ready(function () {
             var decryptedPassword = decryptPassword(encryptedPassword, 5);
             //check for username
             if (user.toLowerCase() === accounts[i].username.toLowerCase()) {
+                console.log("okay");
+                console.log(pass);
+                console.log(decryptedPassword);
                 //check that the password is also correct
                 if (pass === decryptedPassword) {
                     //return true if both fields are correct
@@ -234,6 +249,7 @@ $(document).ready(function () {
         }
         console.log(encryptedPassword);
         console.log(decryptedPassword);
+        console.log(found);
         return found;
 
     }
@@ -330,9 +346,7 @@ $(document).ready(function () {
         if (schedules.some(schedule => schedules.scheduleTitle === scheduleTitle)) {
             alert("Schedule title must be unique");
         }
-        else if (activity1 == "" || activity2 == "" || activity3 == "" || time1 == "" || time2 == "" || time3 == "") {
-            alert("Please fill in all fields");
-        }
+
         //if it is unique add data to the schedules array with a title and add it to local storage
         else {
 
@@ -512,33 +526,27 @@ $(document).ready(function () {
                 var _username = "";
                 var _password = "";
 
-                //Hide the password as it is typed
-                $('#login-password').on('keydown', function (event) {
+                //hide password
+                $('#login-password').on('input', function () {
+                    // Get the current value of the password field
+                    const inputVal = $(this).val();
 
-                    //store each character before it is turned into an astix and add it to the password string
-                    let currentCharacter = $(this).val().slice(-1);
-                    //check if a backspace/ delete key has been pressed, if so delete the last character entered
-                    if (event.key === "Backspace" || event.key === "Delete") {
+                    // If the length of the input value is greater than the length of _password,
+                    // it means a character has been added, so we add that character to _password
+                    if (inputVal.length > _password.length) {
+                        _password += inputVal.slice(-1);
+                    }
+                    // If the length of the input value is less than the length of _password,
+                    // it means a character has been deleted, so we update _password accordingly
+                    else if (inputVal.length < _password.length) {
                         _password = _password.slice(0, -1);
-                        console.log(_password);
-                    }
-                    else if (event.key == "Shift") {
-                        _password == _password;
-                    }
-                    else {
-                        _password += currentCharacter;
-                        console.log(_password);
                     }
 
-                    //store the password value
-                    let tempPassword = $(this).val();
-
-                    //replace it with astrix's as it is typed
-                    let maskedValue = tempPassword.replace(/./g, '*');
-
-                    //change the value of the input field to the astrix
+                    // Mask the password field with asterisks based on the length of _password
+                    const maskedValue = '*'.repeat(_password.length);
                     $(this).val(maskedValue);
                 });
+                
 
                 //Set up what happens when you submit
                 $(".login").submit(function (event) {
@@ -706,13 +714,11 @@ $(document).ready(function () {
                             //read the json file
                             fetchFile(scheduleTitle)
                                 .then(jsonData => {
-                                    // Use jsonData once it has been fetched
                                     console.log(jsonData);
-                                   
                                     viewSchedule(jsonData, currentAccount);
                                 })
                                 .catch(error => {
-                                    alert("Schedule does not exist"); 
+                                    console.error('Error fetching JSON file:', error);
                                 });
 
                             //enable the submit button to stop multiple entries in one go
@@ -852,6 +858,9 @@ $(document).ready(function () {
 
                     //enable register submition again
                     $("#register-submit").prop("disabled", false);
+
+                    //reset the search form
+                    $('.register')[0].reset();
                 });
             });
 
@@ -1016,7 +1025,7 @@ $(document).ready(function () {
         var contentp = $('.content').children('p');
 
         contenth1.text("Support");
-        contentp.text("This is an application that will allow you to manage your time by adding your daily activities to a schedule. On the account menu you can register an account or sign in. Your schedules will be linked to your account and you can update the schedule and will receive feedback on how healthy your time management is and the site will give suggestions for improvements. The colour of the box indicates if you are spending too much or too little time. Green means you are spending a healthy amount of time on the activity, amber means you could maybe consider changing the amount of time spent on the activity and red means you really need to change how much time you spend on this activity");
+        contentp.text("This is an application that will allow you to manage your time by adding your daily activities to a schedule. On the account menu you can register an account or sign in. Your schedules will be linked to your account and you can update the schedule and will receive feedback on how healthy your time management is and the site will give suggestions for improvements. The colour of the box indicates if you are spending too much or too little time. Green means you are spending a healthy amount of time on the activity, amber means you could maybe consider changing the amount of time spent on the activity and red means you really need to change how much time you spend on this activity. When using this application make sure you set your broswers download directory to the wwwroot folder when exporting a schedule.");
 
         //hide the form
         $('.login').hide();

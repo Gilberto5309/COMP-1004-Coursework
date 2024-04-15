@@ -37,8 +37,14 @@ $(document).ready(function () {
         // Create a data URL for the JSON data
         const dataUrl = 'data:application/json;charset=utf-8,' + encodeURIComponent(jsonString);
 
-        // Create a temporary anchor element
-        const anchor = document.createElement('a');
+        // Create a temporary anchor element if it doesn't exist
+        let anchor = document.getElementById('downloadAnchor');
+        if (!anchor) {
+            anchor = document.createElement('a');
+            anchor.id = 'downloadAnchor';
+            document.body.appendChild(anchor);
+        }
+
         anchor.href = dataUrl;
         anchor.download = fileName + '.json';
 
@@ -704,29 +710,34 @@ $(document).ready(function () {
                         $('.showSchedules').show();
 
                         $('.scheduleSearch').submit(function (event) {
+                            // Prevent the default form submission behavior
+                            event.preventDefault();
 
-                            //disable the submit button to stop multiple entries in one go
+                            // Disable the submit button to prevent multiple entries
                             $("#scheduleSearch-submit").prop("disabled", true);
 
-                            //get schedule title
+                            // Get schedule title
                             var scheduleTitle = $('#scheduleInputTitle').val();
 
-                            //read the json file
+                            // Read the JSON file
                             fetchFile(scheduleTitle)
                                 .then(jsonData => {
                                     console.log(jsonData);
                                     viewSchedule(jsonData, currentAccount);
+
+                                    // Enable the submit button after the fetch operation is complete
+                                    $("#scheduleSearch-submit").prop("disabled", false);
                                 })
                                 .catch(error => {
                                     console.error('Error fetching JSON file:', error);
+                                    // Enable the submit button in case of an error
+                                    $("#scheduleSearch-submit").prop("disabled", false);
                                 });
-
-                            //enable the submit button to stop multiple entries in one go
-                            $("#scheduleSearch-submit").prop("disabled", false);
-                        })
+                        });
 
                         //reset the search form
                         $('.scheduleSearch')[0].reset();
+
                     });
 
                     deleteScheduleButton.click(function (event) {

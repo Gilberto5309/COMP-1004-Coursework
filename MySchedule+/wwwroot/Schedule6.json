@@ -1,0 +1,20 @@
+[
+  {
+    "account": "Franku",
+    "scheduleTitle": "Schedule6",
+    "activities": [
+      [
+        "gaming",
+        "2"
+      ],
+      [
+        "working",
+        "5"
+      ],
+      [
+        "social",
+        "1"
+      ]
+    ]
+  }
+]

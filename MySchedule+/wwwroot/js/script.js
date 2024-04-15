@@ -274,7 +274,13 @@ $(document).ready(function () {
         $('.showSchedules').show();
         
         //when the submit button is pressed
-        $('.scheduleDelete').submit(function () {
+        $('.scheduleDelete').submit(function (event) {
+
+            //prevent default action
+            event.preventDefault();
+
+            //disable the submit button to stop multiple entries in one go
+            $("#scheduleDelete-submit").prop("disabled", true);
 
             //input the name of the schedule you want to delete
             var deleteInput = $('#scheduleDeleteTitle').val();
@@ -310,7 +316,12 @@ $(document).ready(function () {
                 //ask user to provide a valid schedule name
                 alert(`${deleteInput} does not exist or is linked to a seperate account`);
             }
-           
+
+            //enable the submit button to stop multiple entries in one go
+            $("#scheduleDelete-submit").prop("disabled", false);
+
+            //reset the search form
+            $('.scheduleDelete')[0].reset();
         });
     }
 
@@ -742,20 +753,9 @@ $(document).ready(function () {
 
                     deleteScheduleButton.click(function (event) {
 
-                        //disable the submit button to stop multiple entries in one go
-                        $("#scheduleDelete-submit").prop("disabled", true);
-
-                        //prevent default action
-                        event.preventDefault();
-
                         //call delete schedule button
                         scheduleDelete(currentAccount);
 
-                        //enable the submit button to stop multiple entries in one go
-                        $("#scheduleDelete-submit").prop("disabled", false);
-
-                        //reset the search form
-                        $('.scheduleDelete')[0].reset();
 
                     });
 
@@ -980,49 +980,40 @@ $(document).ready(function () {
                 $('.showSchedules').show();
 
                 $('.scheduleSearch').submit(function (event) {
+                    // Prevent the default form submission behavior
+                    event.preventDefault();
 
-                    //disable the submit button to stop multiple entries in one go
+                    // Disable the submit button to prevent multiple entries
                     $("#scheduleSearch-submit").prop("disabled", true);
 
-                    //get schedule title
+                    // Get schedule title
                     var scheduleTitle = $('#scheduleInputTitle').val();
 
-                    //read the json file
+                    // Read the JSON file
                     fetchFile(scheduleTitle)
                         .then(jsonData => {
-                            // Use jsonData once it has been fetched
                             console.log(jsonData);
-                            //run the view schedule function
                             viewSchedule(jsonData, currentAccount);
+
+                            // Enable the submit button after the fetch operation is complete
+                            $("#scheduleSearch-submit").prop("disabled", false);
                         })
                         .catch(error => {
-                            alert("Schedule does not exist");
+                            console.error('Error fetching JSON file:', error);
+                            // Enable the submit button in case of an error
+                            $("#scheduleSearch-submit").prop("disabled", false);
                         });
-
-                    //enable the submit button to stop multiple entries in one go
-                    $("#scheduleSearch-submit").prop("disabled", false);
-                })
+                });
 
                 //reset the search form
+                $('.scheduleSearch')[0].reset();
                 $('.scheduleSearch')[0].reset();
             });
 
             $('#deleteSchedule').click(function (event) {
 
-                //disable the submit button to stop multiple entries in one go
-                $("#scheduleDelete-submit").prop("disabled", true);
-
-                //prevent default action
-                event.preventDefault();
-
                 //call delete schedule button
                 scheduleDelete(currentAccount);
-
-                //enable the submit button to stop multiple entries in one go
-                $("#scheduleDelete-submit").prop("disabled", false);
-
-                //reset the search form
-                $('.scheduleDelete')[0].reset();
 
             });
         }

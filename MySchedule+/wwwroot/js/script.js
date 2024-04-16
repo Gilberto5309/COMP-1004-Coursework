@@ -1006,7 +1006,7 @@ $(document).ready(function () {
                 });
 
                 //reset the search form
-                $('.scheduleSearch')[0].reset();
+
                 $('.scheduleSearch')[0].reset();
             });
 

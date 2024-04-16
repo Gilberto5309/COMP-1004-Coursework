@@ -5,3 +5,5 @@ Project Name: MySchedule+
 Project Vision
 
 My vision for this project is to create a schedule application that can help users organize their daily tasks. I want users to be able to input activities they want to do and how much time they will spend on those activities. The application should then tell them if they are spending too long on those activities, for example if they input something like ‘gaming’ and say they spend 6 hours on it the application will highlight it red to let them know that they are spending too long on that activity. This should hopefully promote a more healthy balance for users. I will use google and research what is considered too much time on activities and use this for suggestions on my application. I also want to include an account system for my application where users can sign in and have access to their own stored schedules, accounts should not be able to access schedules linked to other accounts.
+
+When using the application you will need to set your browsers download path to the wwwroot folder.

@@ -154,68 +154,30 @@ $(document).ready(function () {
 
         timeSpent = time.val();
 
-        //Run a check for gaming as an acitvity
-        if (activityName.toLowerCase() === "gaming") {
-            //after doing some research I came to the conclusion that 4 hours seems like the upper most limit for a healthy gaming balance
-            if (timeSpent >= 0 && timeSpent <= 4) {
-                $(activity).css("background-color", green);
-            }
-            else if (timeSpent > 4 && timeSpent <= 6) {
-                $(activity).css("background-color", amber);
-            }
-            else if (timeSpent > 6) {
-                $(activity).css("background-color", red);
-            }
-        }
-        else if (activityName.toLowerCase() === "working") {
-            //after doing some research I came to the conclusion that 4 hours seems like the upper most limit for a healthy working balance
-            if (timeSpent >= 0 && timeSpent <= 5) {
-                $(activity).css("background-color", green);
-            }
-            else if (timeSpent > 5 && timeSpent <= 9) {
-                $(activity).css("background-color", amber);
-            }
-            else if (timeSpent > 9) {
-                $(activity).css("background-color", red);
-            }
-        }
-        else if (activityName.toLowerCase() === "exercise") {
-            //after doing some research I came to the conclusion that 4 hours seems like the upper most limit for a healthy exercise balance
-            if (timeSpent >= 0 && timeSpent <= 4) {
-                $(activity).css("background-color", green);
-            }
-            else if (timeSpent > 4 && timeSpent <= 6) {
-                $(activity).css("background-color", amber);
-            }
-            else if (timeSpent > 6) {
-                $(activity).css("background-color", red);
-            }
-        }
-        else if (activityName.toLowerCase() === "sleeping") {
-            //after doing some research I came to the conclusion that 4 hours seems like the upper most limit for a healthy sleeping balance
-            if (timeSpent >= 8 && timeSpent <= 12) {
-                $(activity).css("background-color", green);
-            }
-            else if (timeSpent > 4 && timeSpent <= 8) {
-                $(activity).css("background-color", amber);
-            }
-            else if (timeSpent < 4) {
-                $(activity).css("background-color", red);
-            }
-        }
-        else if (activityName.toLowerCase() === "social") {
-            //after doing some research I came to the conclusion that 4 hours seems like the upper most limit for a healthy social time balance
-            if (timeSpent >= 0 && timeSpent <= 8) {
-                $(activity).css("background-color", green);
-            }
-            else if (timeSpent > 8 && timeSpent <= 10) {
-                $(activity).css("background-color", amber);
-            }
-            else if (timeSpent > 12) {
-                $(activity).css("background-color", red);
-            }
-        }
+        //array to hold activities and max healthy time that can be spent on them
+        var activities = [["working", 8], ["social", 6], ["exercise", 3], ["gaming", 3], ["napping", 1], ["studying", 2]];
 
+        console.log("activity check:\n")
+        //itterate through activities list to compare times spent
+        for (var i = 0; i < activities.length; i++) {
+            console.log(activityName , activities[i][0]);
+            //change background to corresponding colour
+            if (activityName.toLowerCase() == activities[i][0]) {
+                if (activities[i][1] > timeSpent) {
+                    console.log("good");
+                    $(activity).css("background-color", green);
+                }
+                else if (activities[i][1] == timeSpent) {
+                    console.log("alright");
+                    $(activity).css("background-color", amber);
+                }
+                else {
+                    console.log("bad");
+                    $(activity).css("background-color", red);
+                }
+            }
+
+        }
     }
 
     function validateSignIn(user, pass) {

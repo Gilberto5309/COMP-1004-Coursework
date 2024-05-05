@@ -267,17 +267,22 @@ $(document).ready(function () {
                     $('#deleteSchedule').show();
                     $('#accessSchedule').show(); 
                     $('#logOut').show();
-                    scheduleFound = true;
-                    break;
+
+                    //enable the submit button to stop multiple entries in one go
+                    $("#scheduleDelete-submit").prop("disabled", false);
+
+                    //reset the search form
+                    $('.scheduleDelete')[0].reset();
+                    return;
                     
                 }
             }
             console.log(scheduleFound);
+
             //if there is no matching name
-            if (scheduleFound == false) {
-                //ask user to provide a valid schedule name
-                alert(`${deleteInput} does not exist or is linked to a seperate account`);
-            }
+            //ask user to provide a valid schedule name
+            alert(`${deleteInput} does not exist or is linked to a seperate account`);
+            
 
             //enable the submit button to stop multiple entries in one go
             $("#scheduleDelete-submit").prop("disabled", false);
@@ -507,21 +512,21 @@ $(document).ready(function () {
 
                 //hide password
                 $('#login-password').on('input', function () {
-                    // Get the current value of the password field
+                    //get the current value of the password field
                     const inputVal = $(this).val();
 
-                    // If the length of the input value is greater than the length of _password,
-                    // it means a character has been added, so we add that character to _password
+                    //if the length of the input value is greater than the length of _password,
+                    //it means a character has been added, so we add that character to _password
                     if (inputVal.length > _password.length) {
                         _password += inputVal.slice(-1);
                     }
-                    // If the length of the input value is less than the length of _password,
-                    // it means a character has been deleted, so we update _password accordingly
+                    //if the length of the input value is less than the length of _password,
+                    //it means a character has been deleted, so we update _password accordingly
                     else if (inputVal.length < _password.length) {
                         _password = _password.slice(0, -1);
                     }
 
-                    // Mask the password field with asterisks based on the length of _password
+                    //mask the password field with asterisks based on the length of _password
                     const maskedValue = '*'.repeat(_password.length);
                     $(this).val(maskedValue);
                 });
@@ -745,34 +750,30 @@ $(document).ready(function () {
                 var _password = "";
 
 
-                //Store the password but hide it with astrixs while it gets typed
-                $('#register-password').on('keydown', function () {
+                //store the password but hide it with astrixs while it gets typed
+                $('#register-password').on('input', function () {
 
-                    //store each character before it is turned into an astix and add it to the password string
-                    let currentCharacter = $(this).val().slice(-1);
+                    //get the current value of the password field
+                    const inputVal = $(this).val();
 
-                    //check if a backspace/ delete key has been pressed, if so delete the last character entered
-                    if (event.key === "Backspace" || event.key === "Delete") {
+                    //if the length of the input value is greater than the length of _password,
+                    //it means a character has been added, so we add that character to _password
+                    if (inputVal.length > _password.length) {
+                        _password += inputVal.slice(-1);
+                    }
+                    //if the length of the input value is less than the length of _password,
+                    //it means a character has been deleted, so we update _password accordingly
+                    else if (inputVal.length < _password.length) {
                         _password = _password.slice(0, -1);
-                     
                     }
-                    else if (event.key == "Shift") {
-                        _password = _password;
-                    }
-                    else {
-                        _password += currentCharacter;
-                 
-                    }
-                    //store the password value
-                    let tempPassword = $(this).val();
 
-                    //replace it with astrix's as it is typed
-                    let maskedValue = tempPassword.replace(/./g, '*');
-
-                    //change the value of the input field to the astrix
+                    //mask the password field with asterisks based on the length of _password
+                    const maskedValue = '*'.repeat(_password.length);
                     $(this).val(maskedValue);
 
                 });
+
+                console.log("pass: " , _password)
 
                 //if the submit button is pressed run the following function
                 $(".register").submit(function (event) {
@@ -819,13 +820,14 @@ $(document).ready(function () {
                         $('.register').hide();
                         //show the content again
                         $('.content').show();
+
                     }
                     //if username or password field are left blank tell user to please fill in the fields
-                    else if (_username == "" || _password == "") {
+                    if (_username == "" || _password == "") {
                         alert("Please fill in both fields.");
                     }
                     //if username already exists tell user to use a different username and password
-                    else if(usernameExists){
+                    if(usernameExists){
                         alert("Username already exists please choose a different one.");
                     }
 
